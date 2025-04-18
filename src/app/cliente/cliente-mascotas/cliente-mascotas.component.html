@@ -1,0 +1,49 @@
+<!-- Formulario de selección de cliente -->
+<h2>Selecciona un Cliente</h2>
+<form (ngSubmit)="selectCliente()">
+  <div class="form-group">
+    <label for="clienteSeleccionado">Cliente:</label>
+    <select [(ngModel)]="selectedClienteCedula" name="clienteCedula" id="clienteSeleccionado" required>
+      <option value="">-- Seleccione --</option>
+      <option *ngFor="let cliente of clientes" [value]="cliente.cedula">
+        {{ cliente.nombre }} ({{ cliente.cedula }})
+      </option>
+    </select>
+  </div>
+  <button type="submit" class="btn" style="margin-bottom: 2rem;">Cargar Mascotas</button>
+</form>
+
+<!-- Tabla de mascotas del cliente seleccionado -->
+<h2>Mascotas Registradas</h2>
+<section class="tabla-container" *ngIf="mascotas.length > 0">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Especie</th>
+        <th>Raza</th>
+        <th>Edad</th>
+        <th>Antecedentes</th>
+        <th>Estatus</th>
+        <th>Foto</th>
+        <th>Dueño</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mascota of mascotas">
+        <td>{{ mascota.nombre }}</td>
+        <td>{{ mascota.especie }}</td>
+        <td>{{ mascota.raza }}</td>
+        <td>{{ mascota.edad }}</td>
+        <td>{{ mascota.antecedentes }}</td>
+        <td>{{ mascota.estatus }}</td>
+        <td><img [src]="mascota.foto" alt="{{ mascota.nombre }}" width="80"/></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Mensaje cuando no hay mascotas -->
+<section *ngIf="mascotas.length === 0">
+  <p>No hay mascotas registradas para este cliente.</p>
+</section>

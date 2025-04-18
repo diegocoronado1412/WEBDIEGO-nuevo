@@ -1,0 +1,41 @@
+<div class="main-content">
+  <header>
+    <h1>Lista de Clientes</h1>
+  </header>
+
+  <main>
+    <section class="tabla-container">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Cédula</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Celular</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientes">
+            <td>{{ cliente.cedula }}</td>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.correo }}</td>
+            <td>{{ cliente.celular }}</td>
+            <td>{{ cliente.rol }}</td>
+            <td class="acciones">
+              <a [routerLink]="['/cliente/editar', cliente.id]" class="btn-edit">
+                <i class="fas fa-edit"></i> Editar
+              </a>
+              <button (click)="eliminarCliente(cliente.id)" class="form-eliminar">
+                <button type="submit" class="btn-delete">
+                  <i class="fas fa-trash"></i> Eliminar
+                </button>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>

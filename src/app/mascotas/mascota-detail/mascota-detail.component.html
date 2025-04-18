@@ -1,0 +1,51 @@
+<main *ngIf="mascota">
+    <section class="page-header">
+      <h1>Detalle de {{ mascota.nombre }}</h1>
+    </section>
+  
+    <section class="detalle-mascota">
+      <div class="detalle-contenedor">
+        <div class="detalle-foto">
+          <h2>Foto</h2>
+          <img *ngIf="mascota.foto" [src]="mascota.foto" alt="Foto de Mascota" width="250">
+          <p *ngIf="!mascota.foto"><em>No hay foto disponible</em></p>
+        </div>
+  
+        <div class="detalle-info">
+          <h2>Información General</h2>
+          <p><strong>Nombre:</strong> {{ mascota.nombre }}</p>
+          <p><strong>Especie:</strong> {{ mascota.especie }}</p>
+          <p><strong>Raza:</strong> {{ mascota.raza }}</p>
+          <p><strong>Edad:</strong> {{ mascota.edad }}</p>
+          <p><strong>Dueño (Cédula):</strong> {{ mascota.cliente.cedula || 'Sin dueño' }}</p>
+        </div>
+      </div>
+  
+      <div class="detalle-adicional">
+        <h2>Historial Clínico</h2>
+        <div class="detalle-item">
+          <h3>Citas</h3>
+          <p>{{ mascota.citas || 'No se registraron citas' }}</p>
+        </div>
+        <div class="detalle-item">
+          <h3>Antecedentes</h3>
+          <p>{{ mascota.antecedentes || 'No se registraron antecedentes' }}</p>
+        </div>
+        <div class="detalle-item">
+          <h3>Servicios Recibidos</h3>
+          <p>{{ mascota.servicios || 'No se registraron servicios' }}</p>
+        </div>
+      </div>
+    </section>
+  
+    <section class="boton-volver">
+      <button (click)="volver()" class="btn">
+        <i class="fas fa-arrow-left"></i> Volver
+      </button>
+    </section>
+  </main>
+  
+  <main *ngIf="!mascota">
+    <p>Cargando información...</p>
+  </main>
+  
