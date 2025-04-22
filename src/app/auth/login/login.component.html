@@ -1,17 +1,41 @@
+<!-- src/app/auth/login/login.component.html -->
 <app-navbar></app-navbar>
 
-
-<h2>Iniciar Sesión</h2>
-<form id="loginForm" (ngSubmit)="onSubmit()" #loginForm="ngForm">
-  <div>
-    <label for="cedula">Cédula:</label>
-    <input type="text" id="cedula" name="cedula" [(ngModel)]="cedula" required>
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-image">
+      <img src="assets/images/login-bg.jpg" alt="Ilustración de inicio de sesión">
+    </div>
+    <div class="login-form-container">
+      <h2>Bienvenido de Nuevo</h2>
+      <form id="loginForm" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="form-group">
+          <label for="cedula">Cédula</label>
+          <input 
+            type="text" 
+            id="cedula" 
+            name="cedula"
+            [(ngModel)]="cedula"
+            placeholder="Ingresa tu cédula"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password"
+            [(ngModel)]="password"
+            placeholder="••••••••"
+            required>
+        </div>
+        <button type="submit" [disabled]="!loginForm.valid">Ingresar</button>
+      </form>
+      <p class="login-footer-text">
+        ¿No tienes cuenta? <a routerLink="/auth/registro">Regístrate aquí</a>
+      </p>
+    </div>
   </div>
-  <div>
-    <label for="password">Contraseña:</label>
-    <input type="password" id="password" name="password" [(ngModel)]="password" required>
-  </div>
-  <button type="submit">Ingresar</button>
-</form>
+</div>
 
 <app-footer></app-footer>
