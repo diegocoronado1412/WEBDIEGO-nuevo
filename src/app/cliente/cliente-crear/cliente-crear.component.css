@@ -1,132 +1,109 @@
-.page-header {
-    height: 200px;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))
-      center;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    margin-top: 80px;
+/* src/app/clientes/crear/cliente-crear.component.css */
+
+/*************************************************************
+ * 1. HERO HEADER (CREAR CLIENTE) aplicado al primer H2
+ *************************************************************/
+ h2:first-of-type {
+  height: 35vh;
+  margin: 0;
+  width: 100%;
+  background:
+    linear-gradient(135deg, rgba(46,125,50,0.85), rgba(76,175,80,0.85)),
+    url('/assets/images/hero-image.jpg') center/cover no-repeat fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-radius: 0 0 12px 12px;
+  text-shadow: 2px 4px 6px rgba(0,0,0,0.6);
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 800;
+  position: relative;
+  z-index: 1;
+}
+
+/*************************************************************
+ * 2. FORMULARIO: emergiendo bajo el hero
+ *************************************************************/
+form {
+  max-width: 700px;
+  margin: -60px auto 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  padding: 2rem 2.5rem;
+  display: grid;
+  grid-gap: 1.5rem;
+  position: relative;
+  z-index: 0;
+}
+
+/*************************************************************
+ * 3. GRUPO DE CAMPOS
+ *************************************************************/
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+.form-group label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+.form-group input {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+.form-group input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(76,175,80,0.15);
+  outline: none;
+}
+.form-group small {
+  color: #e53935;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+/*************************************************************
+ * 4. BOTÓN CREAR CLIENTE
+ *************************************************************/
+button[type="submit"].btn {
+  justify-self: center;
+  padding: 0.75rem 2rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+button[disabled].btn {
+  background: var(--background-alt);
+  color: var(--gray-text);
+  cursor: not-allowed;
+}
+button:not([disabled]).btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/*************************************************************
+ * 5. RESPONSIVE
+ *************************************************************/
+@media (max-width: 768px) {
+  h2:first-of-type {
+    height: 25vh;
+    font-size: clamp(1.5rem, 6vw, 2rem);
   }
-  
-  .page-header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  form {
+    margin: -40px 1rem 1.5rem;
+    padding: 1.5rem;
   }
-  
-  .registro-form {
-    max-width: 600px;
-    margin: 3rem auto;
-    padding: 2rem;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  }
-  
-  .registro-form h2 {
-    text-align: center;
-    color: var(--primary);
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-  }
-  
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-    font-weight: 500;
-  }
-  
-  .form-group input,
-  .form-group select {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-  }
-  
-  .form-group input:focus,
-  .form-group select:focus {
-    border-color: var(--primary);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
-  }
-  
-  .form-group select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,...");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 2.5rem;
-  }
-  
-  .btn {
-    width: 100%;
-    padding: 1rem;
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .btn:hover {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
-  }
-  /* Oculta el botón de menú en pantallas grandes */
-  .nav-toggle {
-    display: none;
-  }
-  
-  /* En pantallas móviles, muestra el botón y oculta el menú */
-  @media (max-width: 768px) {
-    .nav-toggle {
-      display: block;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.5rem;
-    }
-    
-    /* Oculta el menú por defecto en dispositivos móviles */
-    nav ul {
-      display: none;
-    }
-    
-    /* Cuando se añade la clase "show", se muestra el menú */
-    nav ul.show {
-      display: block;
-      /* Puedes agregar estilos adicionales para que el menú se muestre de forma vertical, etc. */
-    }
-  }
-  .logo img {
-    width: 170px; /* igual que en index.css */
-    height: auto; 
-  }
-  .page-header {
-    height: 60vh; /* Ajusta la altura a un 60% de la ventana */
-    position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); /* Cambia la URL si deseas otra imagen */
-    background-size: cover;
-    background-attachment: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    margin-top: 80px;
-  }
-  
+}

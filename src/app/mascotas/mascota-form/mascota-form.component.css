@@ -1,0 +1,101 @@
+/* src/app/mascotas/crear/crear-mascota.component.css */
+
+/* ====================================================
+   1. HERO / ENCABEZADO PARA CREAR MASCOTA
+   ==================================================== */
+   .page-header {
+    height: 35vh;
+    margin-top: 80px;
+    background:
+      linear-gradient(135deg, rgba(46,125,50,0.8), rgba(76,175,80,0.8)),
+      url('/assets/images/hero-image.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 0 0 12px 12px;
+  }
+  .page-header h1 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 700;
+    text-shadow: 2px 4px 6px rgba(0,0,0,0.6);
+  }
+  
+  /* ====================================================
+     2. CONTENEDOR DEL FORMULARIO DE CREACIÓN
+     ==================================================== */
+  .registro-form {
+    max-width: 600px;
+    margin: -60px auto 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-gap: 1.25rem;
+  }
+  .registro-form h2 {
+    text-align: center;
+    color: var(--primary);
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* ====================================================
+     3. ESTILOS DE GRUPO DE CAMPOS
+     ==================================================== */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .form-group label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+  }
+  .form-group input,
+  .form-group select {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+  }
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(76,175,80,0.15);
+    outline: none;
+  }
+  
+  /* ====================================================
+     4. BOTÓN DE GUARDADO
+     ==================================================== */
+  .registro-form .btn {
+    justify-self: center;
+    padding: 0.75rem 2rem;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  .registro-form .btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+  }
+  
+  /* ====================================================
+     5. RESPONSIVE
+     ==================================================== */
+  @media (max-width: 576px) {
+    .registro-form {
+      padding: 1.5rem 1rem;
+      margin: -40px auto 1.5rem;
+    }
+  }
+  

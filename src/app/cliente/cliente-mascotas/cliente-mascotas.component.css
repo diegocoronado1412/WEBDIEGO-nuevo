@@ -1,0 +1,162 @@
+/* src/app/clientes/mascotas-cliente/mascotas-cliente.component.css */
+
+/*************************************************************
+ * 1. HERO HEADER (SELECCIÓN DE CLIENTE)
+ *************************************************************/
+ .page-header {
+    height: 45vh;
+    margin-top: 80px;
+    background:
+      linear-gradient(135deg, rgba(46,125,50,0.85), rgba(76,175,80,0.85)),
+      url('/assets/images/hero-image.jpg') center/cover no-repeat fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 0 0 12px 12px;
+    text-shadow: 2px 4px 8px rgba(0,0,0,0.6);
+  }
+  .page-header h2 {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    margin: 0;
+    font-weight: 800;
+  }
+  
+  /*************************************************************
+   * 2. FORMULARIO ELEVADO (SELECCIÓN)
+   *************************************************************/
+  .registro-form {
+    max-width: 600px;
+    margin: -6rem auto 2rem;   /* superpone sobre hero */
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1;
+  }
+  .registro-form .form-group {
+    margin-bottom: 1.5rem;
+  }
+  .registro-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  .registro-form select,
+  .registro-form button.btn {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .registro-form button.btn {
+    background: var(--primary);
+    color: #fff;
+    margin-top: 1rem;
+    border: none;
+    transition: background 0.3s ease;
+  }
+  .registro-form button.btn:hover {
+    background: var(--primary-dark);
+  }
+  
+  /*************************************************************
+   * 3. SUBHEADER (MASCOTAS REGISTRADAS)
+   *************************************************************/
+  .subheader {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin: 4rem 0 2rem;
+  }
+  
+  /*************************************************************
+   * 4. TABLA DE MASCOTAS
+   *************************************************************/
+  .tabla-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+    overflow-x: auto;
+  }
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .styled-table th,
+  .styled-table td {
+    padding: 0.75rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .styled-table th {
+    background: var(--primary);
+    color: #fff;
+    font-weight: 600;
+  }
+  .styled-table tbody tr:nth-child(even) {
+    background: var(--background-alt);
+  }
+  .styled-table tbody tr:hover {
+    background: #f9f9f9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .styled-table img {
+    border-radius: 4px;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /*************************************************************
+   * 5. ESTILOS PARA EL MENSAJE VACÍO
+   *************************************************************/
+  .empty-message {
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 2rem 0;
+  }
+  
+  /*************************************************************
+   * 6. RESPONSIVE
+   *************************************************************/
+  @media (max-width: 768px) {
+    .styled-table thead { display: none; }
+    .styled-table,
+    .styled-table tbody,
+    .styled-table tr,
+    .styled-table td {
+      display: block;
+      width: 100%;
+    }
+    .styled-table tr {
+      margin-bottom: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    .styled-table td {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      position: relative;
+      text-align: right;
+    }
+    .styled-table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 1rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+  }
+  

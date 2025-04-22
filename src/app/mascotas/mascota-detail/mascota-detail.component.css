@@ -1,0 +1,128 @@
+/* src/app/mascotas/detalle/detalle-mascota.component.css */
+
+/*************************************************************
+ * 1. HERO HEADER (DETALLE DE MASCOTA)
+ *************************************************************/
+ .page-header {
+    height: 35vh;
+    margin-top: 80px;
+    background:
+      linear-gradient(135deg, rgba(46,125,50,0.8), rgba(76,175,80,0.8)),
+      url('/assets/images/hero-image.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 0 0 12px 12px;
+    text-shadow: 2px 4px 6px rgba(0,0,0,0.6);
+  }
+  .page-header h1 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 800;
+    margin: 0;
+  }
+  
+  /*************************************************************
+   * 2. DETALLE CONTENEDOR PRINCIPAL
+   *************************************************************/
+  .detalle-mascota {
+    max-width: 1000px;
+    margin: -60px auto 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    padding: 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .detalle-contenedor {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .detalle-foto, .detalle-info {
+    flex: 1 1 300px;
+  }
+  .detalle-foto h2, .detalle-info h2 {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+  }
+  .detalle-foto img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .detalle-info p {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  /*************************************************************
+   * 3. HISTORIAL CLÍNICO (DETALLE ADICIONAL)
+   *************************************************************/
+  .detalle-adicional {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  .detalle-item {
+    background: var(--background-alt);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .detalle-item h3 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+  .detalle-item p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+  
+  /*************************************************************
+   * 4. BOTÓN VOLVER
+   *************************************************************/
+  .boton-volver {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  .boton-volver .btn {
+    background: var(--primary);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  .boton-volver .btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+  }
+  
+  /*************************************************************
+   * 5. RESPONSIVE
+   *************************************************************/
+  @media (max-width: 768px) {
+    .detalle-mascota {
+      margin: -40px 1rem 1.5rem;
+      padding: 1.5rem;
+    }
+    .detalle-contenedor {
+      flex-direction: column;
+      align-items: center;
+    }
+    .detalle-foto img {
+      max-width: 100%;
+    }
+  }
