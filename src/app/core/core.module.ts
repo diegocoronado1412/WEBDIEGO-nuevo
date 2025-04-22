@@ -24,6 +24,10 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     CoreRoutingModule,
     FormsModule
-  ]
+  ],
+  exports: [
+   NavbarComponent,
+  FooterComponent
+     ]
 })
 export class CoreModule { }
