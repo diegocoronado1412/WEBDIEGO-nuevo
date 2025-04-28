@@ -12,6 +12,7 @@ import { DashboardClienteComponent } from './pages/dashboard-cliente/dashboard-c
 import { DashboardVeterinarioComponent } from './pages/dashboard-veterinario/dashboard-veterinario.component';
 import { VeterinarioClienteComponent } from './pages/veterinario-cliente/veterinario-cliente.component';
 import { VeterinarioMascotasComponent } from './pages/veterinario-mascotas/veterinario-mascotas.component';
+import { VeterinarioTratamientosComponent } from './pages/veterinario-tratamientos/veterinario-tratamientos.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { VeterinarioMascotasComponent } from './pages/veterinario-mascotas/veter
     DashboardClienteComponent,
     DashboardVeterinarioComponent,
     VeterinarioClienteComponent,
-    VeterinarioMascotasComponent
+    VeterinarioMascotasComponent,
+    VeterinarioTratamientosComponent
   ],
   imports: [
     BrowserModule,
