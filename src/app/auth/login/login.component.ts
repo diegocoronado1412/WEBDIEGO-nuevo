@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
- // ajusta ruta si cambia
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormsModule } from '@angular/forms';
@@ -22,19 +21,19 @@ export class LoginComponent {
       this.error = 'Todos los campos son obligatorios';
       return;
     }
-  
+
     this.authService.login(this.cedula, this.password).subscribe({
       next: (data) => {
         console.log('Login exitoso:', data);
-  
-        // Redireccionar según el rol
-        if (data.role === 'CLIENTE') {
-          const clienteId = data.userId; // 🔥 AQUÍ ESTÁ LA CLAVE
-          this.router.navigate(['/cliente/perfil', clienteId]);
-        } else if (data.role === 'ADMIN') {
-          this.router.navigate(['/admin']);
-        } else if (data.role === 'VETERINARIO') {
-          this.router.navigate(['/veterinario']);
+
+        const rol = data.role.toLowerCase(); // 🔥 AQUÍ corregido: role, no rol
+
+        if (rol === 'cliente') {
+          this.router.navigate(['/dashboard-cliente']);
+        } else if (rol === 'veterinario') {
+          this.router.navigate(['/dashboard-veterinario']);
+        } else {
+          this.error = 'Rol no reconocido';
         }
       },
       error: (err) => {
@@ -43,5 +42,4 @@ export class LoginComponent {
       }
     });
   }
-  
 }

@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  getNombreUsuario(): string {
+    throw new Error('Method not implemented.');
+  }
 
   private apiUrl = 'http://localhost:8090/api/auth';
 

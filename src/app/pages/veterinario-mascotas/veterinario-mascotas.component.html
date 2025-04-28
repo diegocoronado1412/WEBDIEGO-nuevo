@@ -1,0 +1,61 @@
+<div class="sidebar">
+    <div class="sidebar-header">
+      <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar"/>
+      <h2>Vibra Animal</h2>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a routerLink="/dashboard-veterinario" routerLinkActive="active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+      <li><a routerLink="/veterinario-cliente" routerLinkActive="active"><i class="fas fa-users"></i><span>Cliente</span></a></li>
+      <li><a routerLink="/veterinario-mascotas" routerLinkActive="active" class="active"><i class="fas fa-paw"></i><span>Mascotas</span></a></li>
+      <li><a routerLink="/veterinario-tratamientos" routerLinkActive="active"><i class="fas fa-stethoscope"></i><span>Tratamientos</span></a></li>
+      <li><a routerLink="/veterinario-recetas" routerLinkActive="active"><i class="fas fa-pills"></i><span>Recetas</span></a></li>
+      <li><a routerLink="/veterinario-perfil" routerLinkActive="active"><i class="fas fa-user"></i><span>Perfil</span></a></li>
+      <li><a routerLink="/login" class="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a></li>
+    </ul>
+  </div>
+  
+  <div class="main-content">
+    <header>
+      <h1>Gestión de Mascotas</h1>
+    </header>
+  
+    <main>
+      <div class="selector-opciones">
+        <div class="opciones">
+          <button routerLink="/mascotas/nuevo" class="opcion-btn">Crear Mascota</button>
+          <button routerLink="/mascotas/lista" class="opcion-btn">Listar Mascotas</button>
+          <button routerLink="/mascotas/edit/1" class="opcion-btn">Editar Mascota</button> <!-- ID dinámico en uso real -->
+          <button routerLink="/mascotas/detalle/1" class="opcion-btn">Ver Detalle Mascota</button> <!-- ID dinámico en uso real -->
+        </div>
+      </div>
+    </main>
+  
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Contacto</h3>
+          <p>Email: info&#64;vibraanimal.com</p>
+          <p>Teléfono: (123) 456-7890</p>
+          <p>Dirección: Calle Principal #123, Ciudad</p>
+        </div>
+        <div class="footer-section">
+          <h3>Enlaces rápidos</h3>
+          <ul>
+            <li><a routerLink="/servicios">Servicios</a></li>
+            <li><a routerLink="/contacto">Contacto</a></li>
+            <li><a routerLink="/login">Área de clientes</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Síguenos</h3>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Vibra Animal. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+  </div>
+  

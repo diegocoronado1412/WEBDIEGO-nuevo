@@ -8,10 +8,18 @@ import { MascotasModule } from './mascotas/mascotas.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
+import { DashboardClienteComponent } from './pages/dashboard-cliente/dashboard-cliente.component';
+import { DashboardVeterinarioComponent } from './pages/dashboard-veterinario/dashboard-veterinario.component';
+import { VeterinarioClienteComponent } from './pages/veterinario-cliente/veterinario-cliente.component';
+import { VeterinarioMascotasComponent } from './pages/veterinario-mascotas/veterinario-mascotas.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DashboardClienteComponent,
+    DashboardVeterinarioComponent,
+    VeterinarioClienteComponent,
+    VeterinarioMascotasComponent
   ],
   imports: [
     BrowserModule,
