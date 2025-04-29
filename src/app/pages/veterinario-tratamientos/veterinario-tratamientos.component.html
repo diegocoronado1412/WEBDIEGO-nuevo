@@ -1,9 +1,61 @@
-<div class="container mt-4">
+<!-- veterinario-tratamientos.component.html -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar"/>
+    <h2>Vibra Animal</h2>
+  </div>
+  <ul class="sidebar-menu">
+    <li><a routerLink="/dashboard-veterinario" routerLinkActive="active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+    <li><a routerLink="/veterinario-cliente" routerLinkActive="active"><i class="fas fa-users"></i><span>Cliente</span></a></li>
+    <li><a routerLink="/veterinario-mascotas" routerLinkActive="active"><i class="fas fa-paw"></i><span>Mascotas</span></a></li>
+    <li><a routerLink="/veterinario-tratamientos" routerLinkActive="active"><i class="fas fa-stethoscope"></i><span>Tratamientos</span></a></li>
+    <li><a routerLink="/veterinario-recetas" routerLinkActive="active"><i class="fas fa-pills"></i><span>Recetas</span></a></li>
+    <li><a routerLink="/veterinario-perfil" routerLinkActive="active"><i class="fas fa-user"></i><span>Perfil</span></a></li>
+    <li><a routerLink="/login" class="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a></li>
+  </ul>
+</aside>
+
+<div class="main-content">
+  <header>
+    <h1>Panel de Veterinario</h1>
+    <div class="user-info">
+      <p>Bienvenido, {{ nombreVeterinario }}</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="dashboard-stats">
+      <div class="stat-card">
+        <i class="fas fa-user-md"></i>
+        <div class="stat-info">
+          <h3>Pacientes Activos</h3>
+          <p>{{ cantidadPacientes }}</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-calendar-check"></i>
+        <div class="stat-info">
+          <h3>Citas Pendientes</h3>
+          <p>{{ cantidadCitas }}</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-pills"></i>
+        <div class="stat-info">
+          <h3>Tratamientos Asignados</h3>
+          <p>{{ cantidadTratamientos }}</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="container mt-4">
     <h2 class="mb-4">Registrar Tratamiento</h2>
-    <form (ngSubmit)="crearTratamiento()">
+    <form class="formulario-tratamiento" (ngSubmit)="crearTratamiento()">
       <div class="form-group mb-3">
-        <label>Fecha:</label>
+        <label for="fecha">Fecha:</label>
         <input
+          id="fecha"
           type="date"
           class="form-control"
           [(ngModel)]="nuevoFecha"
@@ -12,8 +64,9 @@
         />
       </div>
       <div class="form-group mb-3">
-        <label>Droga:</label>
+        <label for="droga">Droga:</label>
         <select
+          id="droga"
           class="form-control"
           [(ngModel)]="nuevaDroga"
           name="droga"
@@ -24,8 +77,9 @@
         </select>
       </div>
       <div class="form-group mb-3">
-        <label>Mascota:</label>
+        <label for="mascota">Mascota:</label>
         <select
+          id="mascota"
           class="form-control"
           [(ngModel)]="nuevaMascota"
           name="mascota"
@@ -35,22 +89,26 @@
           <option *ngFor="let m of mascotas" [ngValue]="m">{{ m.nombre }}</option>
         </select>
       </div>
-      <button class="btn btn-success w-100" type="submit">
+      <button class="crear-btn" type="submit">
         CREAR TRATAMIENTO
       </button>
     </form>
-  
+
     <hr />
-  
+
     <h3>Lista de Tratamientos</h3>
     <table class="table table-striped mt-3">
       <thead>
         <tr>
-          <th>ID</th><th>Fecha</th><th>Droga</th><th>Mascota</th><th>Veterinario</th>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>Droga</th>
+          <th>Mascota</th>
+          <th>Veterinario</th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let t of tratamientos">
+      <tbody *ngIf="tratamientos.length > 0; else sinDatos">
+        <tr *ngFor="let t of tratamientos; trackBy: trackByTratId">
           <td>{{ t.id }}</td>
           <td>{{ t.fecha | date:'short' }}</td>
           <td>{{ obtenerNombreDroga(t.droga) }}</td>
@@ -59,5 +117,9 @@
         </tr>
       </tbody>
     </table>
+    <ng-template #sinDatos>
+      <p class="text-muted">No hay tratamientos registrados aún.</p>
+    </ng-template>
   </div>
-  
+</div>
+

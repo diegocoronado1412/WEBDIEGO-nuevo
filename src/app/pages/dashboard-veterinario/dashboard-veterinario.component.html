@@ -1,81 +1,109 @@
+<!-- src/app/pages/dashboard-veterinario/dashboard-veterinario.component.html -->
+
 <div class="sidebar">
-    <div class="sidebar-header">
-      <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar"/>
-      <h2>Vibra Animal</h2>
-    </div>
-    <ul class="sidebar-menu">
-      <li><a routerLink="/dashboard-veterinario" routerLinkActive="active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-      <li><a routerLink="/veterinario-cliente" routerLinkActive="active"><i class="fas fa-users"></i><span>Cliente</span></a></li>
-      <li><a routerLink="/veterinario-mascotas" routerLinkActive="active"><i class="fas fa-paw"></i><span>Mascotas</span></a></li>
-      <li><a routerLink="/veterinario-tratamientos" routerLinkActive="active"><i class="fas fa-stethoscope"></i><span>Tratamientos</span></a></li>
-      <li><a routerLink="/veterinario-recetas" routerLinkActive="active"><i class="fas fa-pills"></i><span>Recetas</span></a></li>
-      <li><a routerLink="/veterinario-perfil" routerLinkActive="active"><i class="fas fa-user"></i><span>Perfil</span></a></li>
-      <li><a routerLink="/login" class="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a></li>
-    </ul>
+  <div class="sidebar-header">
+    <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar"/>
+    <h2>Vibra Animal</h2>
   </div>
-  
-  <div class="main-content">
-    <header>
-      <h1>Panel de Veterinario</h1>
-      <div class="user-info">
-        <p>Bienvenido, {{nombreVeterinario}}</p>
-      </div>
-    </header>
-  
-    <main>
-      <p>Aquí puedes gestionar tus pacientes, citas y tratamientos.</p>
-  
-      <div class="dashboard-stats">
-        <div class="stat-card">
-          <i class="fas fa-user-md"></i>
-          <div class="stat-info">
-            <h3>Pacientes Activos</h3>
-            <p>{{cantidadPacientes}}</p>
-          </div>
-        </div>
-        <div class="stat-card">
-          <i class="fas fa-calendar-check"></i>
-          <div class="stat-info">
-            <h3>Citas Pendientes</h3>
-            <p>{{cantidadCitas}}</p>
-          </div>
-        </div>
-        <div class="stat-card">
-          <i class="fas fa-pills"></i>
-          <div class="stat-info">
-            <h3>Tratamientos Asignados</h3>
-            <p>{{cantidadTratamientos}}</p>
-          </div>
+  <ul class="sidebar-menu">
+    <li><a routerLink="/dashboard-veterinario" routerLinkActive="active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+    <li><a routerLink="/veterinario-cliente" routerLinkActive="active"><i class="fas fa-users"></i><span>Cliente</span></a></li>
+    <li><a routerLink="/veterinario-mascotas" routerLinkActive="active"><i class="fas fa-paw"></i><span>Mascotas</span></a></li>
+    <li><a routerLink="/veterinario-tratamientos" routerLinkActive="active"><i class="fas fa-stethoscope"></i><span>Tratamientos</span></a></li>
+    <li><a routerLink="/veterinario-recetas" routerLinkActive="active"><i class="fas fa-pills"></i><span>Recetas</span></a></li>
+    <li><a routerLink="/veterinario-perfil" routerLinkActive="active"><i class="fas fa-user"></i><span>Perfil</span></a></li>
+    <li><a routerLink="/login" class="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a></li>
+  </ul>
+</div>
+
+<div class="main-content">
+  <header>
+    <h1>Panel de Veterinario</h1>
+    <div class="user-info">
+      <p>Bienvenido, {{ nombreVeterinario }}</p>
+    </div>
+  </header>
+
+  <main>
+    <p>Aquí puedes gestionar tus pacientes, citas y tratamientos.</p>
+
+    <!-- Estadísticas Rápidas -->
+    <div class="dashboard-stats">
+      <div class="stat-card">
+        <i class="fas fa-user-md"></i>
+        <div class="stat-info">
+          <h3>Pacientes Activos</h3>
+          <p>{{ cantidadPacientes }}</p>
         </div>
       </div>
-    </main>
+      <div class="stat-card">
+        <i class="fas fa-calendar-check"></i>
+        <div class="stat-info">
+          <h3>Citas Pendientes</h3>
+          <p>{{ cantidadCitas }}</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-pills"></i>
+        <div class="stat-info">
+          <h3>Tratamientos Asignados</h3>
+          <p>{{ cantidadTratamientos }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráficos Organizados -->
+    <div class="row mt-4">
+      <!-- Área Chart -->
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Sales</h3>
+          </div>
+          <div class="card-body">
+            <canvas id="areaChart" style="min-height: 250px;"></canvas>
+          </div>
+        </div>
+      </div>
+      <!-- Donut Chart -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Visitors</h3>
+          </div>
+          <div class="card-body">
+            <canvas id="donutChart" style="min-height: 250px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Contacto</h3>
+      <p>Email: info&#64;vibraanimal.com</p>
+      <p>Teléfono: (123) 456-7890</p>
+      <p>Dirección: Calle Principal #123, Ciudad</p>
+    </div>
+    <div class="footer-section">
+      <h3>Enlaces rápidos</h3>
+      <ul>
+        <li><a routerLink="/servicios">Servicios</a></li>
+        <li><a routerLink="/contacto">Contacto</a></li>
+        <li><a routerLink="/login">Área de clientes</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Síguenos</h3>
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    </div>
   </div>
-  
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>Contacto</h3>
-        <p>Email: info&#64;vibraanimal.com</p>
-        <p>Teléfono: (123) 456-7890</p>
-        <p>Dirección: Calle Principal #123, Ciudad</p>
-      </div>
-      <div class="footer-section">
-        <h3>Enlaces rápidos</h3>
-        <ul>
-          <li><a routerLink="/servicios">Servicios</a></li>
-          <li><a routerLink="/contacto">Contacto</a></li>
-          <li><a routerLink="/login">Área de clientes</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>Síguenos</h3>
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Vibra Animal. Todos los derechos reservados.</p>
-    </div>
-  </footer>
-  
+  <div class="footer-bottom">
+    <p>&copy; 2025 Vibra Animal. Todos los derechos reservados.</p>
+  </div>
+</footer>

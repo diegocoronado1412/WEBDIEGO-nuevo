@@ -1,4 +1,7 @@
+// veterinario-tratamientos.component.ts
+
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { TratamientoService } from 'src/app/services/tratamiento.service';
 import { DrogaService }       from 'src/app/services/droga.service';
 import { MascotaService }     from 'src/app/services/mascota.service';
@@ -12,68 +15,83 @@ import { Mascota }            from 'src/app/models/mascota.model';
   styleUrls: ['./veterinario-tratamientos.component.css']
 })
 export class VeterinarioTratamientosComponent implements OnInit {
+  // Panel de veterinario
+  nombreVeterinario: string = 'Dr. Pérez';    // o carga desde tu servicio de auth
+  cantidadPacientes: number = 0;              // implementa fetch si tienes endpoint
+  cantidadCitas: number = 0;                  // implementa fetch si tienes endpoint
+
+  // Datos de tratamientos
   tratamientos: Tratamiento[] = [];
   drogas: Droga[] = [];
   mascotas: Mascota[] = [];
+  cantidadTratamientos: number = 0;
 
   // Modelo de formulario:
-  nuevoFecha   = new Date().toISOString().substring(0, 10);
-  nuevaDroga?  : Droga;
-  nuevaMascota?: Mascota;
+  nuevoFecha    = new Date().toISOString().substring(0, 10);
+  nuevaDroga?   : Droga;
+  nuevaMascota? : Mascota;
 
   constructor(
     private svcTrat: TratamientoService,
-    private svcDr: DrogaService,
-    private svcMs: MascotaService
+    private svcDr:   DrogaService,
+    private svcMs:   MascotaService
   ) {}
 
   ngOnInit(): void {
     this.cargarTodo();
   }
 
-  /** Carga tratamientos, drogas y mascotas */
+  /** Carga simultánea de datos */
   private cargarTodo(): void {
-    this.svcTrat.obtenerTratamientos()
-      .subscribe(x => this.tratamientos = x);
-    this.svcDr.getAllDrogas()
-      .subscribe(x => this.drogas = x);
-    this.svcMs.getAllMascotas()
-      .subscribe(x => this.mascotas = x);
+    forkJoin({
+      tratamientos: this.svcTrat.obtenerTratamientos(),
+      drogas:       this.svcDr.getAllDrogas(),
+      mascotas:     this.svcMs.getAllMascotas()
+    }).subscribe({
+      next: ({ tratamientos, drogas, mascotas }) => {
+        this.tratamientos = tratamientos;
+        this.drogas        = drogas;
+        this.mascotas      = mascotas;
+
+        // Actualiza los contadores
+        this.cantidadTratamientos = tratamientos.length;
+        this.cantidadPacientes    = mascotas.length;      // o petición real
+        // this.cantidadCitas = ... carga tus citas
+      },
+      error: err => {
+        console.error('Error al cargar datos', err);
+        alert('No se pudo cargar información.');
+      }
+    });
   }
 
-  /** Crea un tratamiento y recarga la lista completa */
   crearTratamiento(): void {
     if (!this.nuevaDroga || !this.nuevaMascota) {
       return alert('❌ Selecciona droga y mascota');
     }
-
     const payload = {
       fecha:       this.nuevoFecha,
-      droga:       this.nuevaDroga.id,
-      mascota:     { id: this.nuevaMascota.id },
+      droga:       this.nuevaDroga!.id,
+      mascota:     { id: this.nuevaMascota!.id },
       veterinario: { id: 1 }
     };
-
-    console.log('📤 Payload:', payload);
-    this.svcTrat.crearTratamiento(payload)
-      .subscribe({
-        next: () => {
-          alert('✅ Tratamiento creado');
-          this.cargarTodo();       // recarga toda la lista
-          this.resetForm();
-        },
-        error: err => {
-          console.error('Error al crear tratamiento', err);
-          alert('❌ Error al crear tratamiento');
-        }
-      });
+    this.svcTrat.crearTratamiento(payload).subscribe({
+      next: () => {
+        this.cargarTodo();
+        this.resetForm();
+      },
+      error: () => alert('Error creando tratamiento')
+    });
   }
 
-  /** Reinicia el formulario */
   resetForm(): void {
     this.nuevoFecha    = new Date().toISOString().substring(0, 10);
-    this.nuevaDroga   = undefined;
-    this.nuevaMascota = undefined;
+    this.nuevaDroga    = undefined;
+    this.nuevaMascota  = undefined;
+  }
+
+  trackByTratId(index: number, item: Tratamiento): number {
+    return item.id!;
   }
 
   obtenerNombreDroga(d: Droga | number): string {

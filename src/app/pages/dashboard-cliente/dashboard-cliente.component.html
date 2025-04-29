@@ -1,83 +1,105 @@
 <div class="sidebar">
-    <div class="sidebar-header">
-      <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar"/>
-      <h2>Vibra Animal</h2>
+  <div class="sidebar-header">
+    <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar"/>
+    <h2>Vibra Animal</h2>
+  </div>
+  <ul class="sidebar-menu">
+    <li><a routerLink="/dashboard-cliente"     routerLinkActive="active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+    <li><a routerLink="/cliente/mascotas"      routerLinkActive="active"><i class="fas fa-paw"></i><span>Mis Mascotas</span></a></li>
+    <li><a routerLink="/cliente/crear"         routerLinkActive="active"><i class="fas fa-calendar-check"></i><span>Apartar Cita</span></a></li>
+    <li><a routerLink="/cliente/listar-recetas"routerLinkActive="active"><i class="fas fa-pills"></i><span>Mis Recetas</span></a></li>
+    <li><a routerLink="/cliente/listar-tratamientos" routerLinkActive="active"><i class="fas fa-stethoscope"></i><span>Mis Tratamientos</span></a></li>
+    <li><a routerLink="/tienda"                routerLinkActive="active"><i class="fas fa-store"></i><span>Tienda</span></a></li>
+    <li><a routerLink="/carrito"               routerLinkActive="active"><i class="fas fa-shopping-cart"></i><span>Carrito</span></a></li>
+    <li><a routerLink="/cliente/perfil/1"      routerLinkActive="active"><i class="fas fa-user"></i><span>Perfil</span></a></li>
+    <li><a routerLink="/login" class="logout-btn" routerLinkActive="active"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a></li>
+  </ul>
+</div>
+
+<div class="main-content">
+  <header>
+    <h1>Panel de Cliente</h1>
+    <div class="user-info">
+      <p>Bienvenido, {{ nombreCliente }}</p>
     </div>
-    <ul class="sidebar-menu">
-      <li><a routerLink="/dashboard-cliente" routerLinkActive="active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-      <li><a routerLink="/cliente/mascotas" routerLinkActive="active"><i class="fas fa-paw"></i><span>Mis Mascotas</span></a></li>
-      <li><a routerLink="/cliente/crear" routerLinkActive="active"><i class="fas fa-calendar-check"></i><span>Apartar Cita</span></a></li>
-      <li><a routerLink="/cliente/listar" routerLinkActive="active"><i class="fas fa-pills"></i><span>Mis Recetas</span></a></li>
-      <li><a routerLink="/cliente/listar" routerLinkActive="active"><i class="fas fa-stethoscope"></i><span>Mis Tratamientos</span></a></li>
-      <li><a routerLink="/tienda" routerLinkActive="active"><i class="fas fa-store"></i><span>Tienda</span></a></li>
-      <li><a routerLink="/carrito" routerLinkActive="active"><i class="fas fa-shopping-cart"></i><span>Carrito</span></a></li>
-      <li><a routerLink="/cliente/perfil/1" routerLinkActive="active"><i class="fas fa-user"></i><span>Perfil</span></a></li>
-      <li><a routerLink="/login" class="logout-btn" routerLinkActive="active"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a></li>
-    </ul>
-  </div>
-  
-  <div class="main-content">
-    <header>
-      <h1>Panel de Cliente</h1>
-      <div class="user-info">
-        <p>Bienvenido, {{nombreCliente}}</p>
+  </header>
+
+  <main>
+    <p>Desde aquí puedes gestionar tus citas, recetas y compras.</p>
+
+    <!-- Estatísticas Rápidas -->
+    <div class="dashboard-stats">
+      <div class="stat-card">
+        <i class="fas fa-calendar-check"></i>
+        <div class="stat-info">
+          <h3>Próximas Citas</h3>
+          <p>{{ cantidadCitas }}</p>
+        </div>
       </div>
-    </header>
-  
-    <main>
-      <p>Desde aquí puedes gestionar tus citas, recetas y compras.</p>
-  
-      <div class="dashboard-stats">
-        <div class="stat-card">
-          <i class="fas fa-calendar-check"></i>
-          <div class="stat-info">
-            <h3>Próximas Citas</h3>
-            <p>{{cantidadCitas}}</p>
-          </div>
+      <div class="stat-card">
+        <i class="fas fa-pills"></i>
+        <div class="stat-info">
+          <h3>Recetas Activas</h3>
+          <p>{{ cantidadRecetas }}</p>
         </div>
-        <div class="stat-card">
-          <i class="fas fa-pills"></i>
-          <div class="stat-info">
-            <h3>Recetas Activas</h3>
-            <p>{{cantidadRecetas}}</p>
-          </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="stat-info">
+          <h3>Productos en Carrito</h3>
+          <p>{{ cantidadCarrito }}</p>
         </div>
-        <div class="stat-card">
-          <i class="fas fa-shopping-cart"></i>
-          <div class="stat-info">
-            <h3>Productos en Carrito</h3>
-            <p>{{cantidadCarrito}}</p>
+      </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="row mt-4">
+      <!-- Chart de Citas en el Tiempo -->
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Citas en el Tiempo</h3></div>
+          <div class="card-body">
+            <canvas id="citasChart" style="min-height: 250px;"></canvas>
           </div>
         </div>
       </div>
-    </main>
-  
-    <footer>
-      <div class="footer-content">
-        <div class="footer-section">
-          <h3>Contacto</h3>
-          <p>Email: info&#64;vibraanimal.com</p>
-          <p>Teléfono: (123) 456-7890</p>
-          <p>Dirección: Calle Principal #123, Ciudad</p>
-        </div>
-        <div class="footer-section">
-          <h3>Enlaces rápidos</h3>
-          <ul>
-            <li><a routerLink="/servicios">Servicios</a></li>
-            <li><a routerLink="/contacto">Contacto</a></li>
-            <li><a routerLink="/login">Área de clientes</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h3>Síguenos</h3>
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <!-- Donut de Recetas vs Carrito -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Recetas vs Carrito</h3></div>
+          <div class="card-body">
+            <canvas id="recetasDonut" style="min-height: 250px;"></canvas>
+          </div>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 Vibra Animal. Todos los derechos reservados.</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <p>Email: info&#64;vibraanimal.com</p>
+        <p>Teléfono: (123) 456-7890</p>
+        <p>Dirección: Calle Principal #123, Ciudad</p>
       </div>
-    </footer>
-  </div>
-  
+      <div class="footer-section">
+        <h3>Enlaces rápidos</h3>
+        <ul>
+          <li><a routerLink="/servicios">Servicios</a></li>
+          <li><a routerLink="/contacto">Contacto</a></li>
+          <li><a routerLink="/login">Área de clientes</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Síguenos</h3>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Vibra Animal. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</div>
