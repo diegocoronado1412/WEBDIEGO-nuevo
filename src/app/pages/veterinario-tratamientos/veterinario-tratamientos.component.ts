@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TratamientoService } from 'src/app/services/tratamiento.service';
-import { DrogaService } from 'src/app/services/droga.service';
-import { MascotaService } from 'src/app/services/mascota.service';
-import { Tratamiento } from 'src/app/models/tratamiento.model';
-import { Droga } from 'src/app/models/droga.model';
-import { Mascota } from 'src/app/models/mascota.model';
-import { Veterinario } from 'src/app/models/veterinario.model';
+import { DrogaService }       from 'src/app/services/droga.service';
+import { MascotaService }     from 'src/app/services/mascota.service';
+import { Tratamiento }        from 'src/app/models/tratamiento.model';
+import { Droga }              from 'src/app/models/droga.model';
+import { Mascota }            from 'src/app/models/mascota.model';
 
 @Component({
   selector: 'app-veterinario-tratamientos',
@@ -13,102 +12,77 @@ import { Veterinario } from 'src/app/models/veterinario.model';
   styleUrls: ['./veterinario-tratamientos.component.css']
 })
 export class VeterinarioTratamientosComponent implements OnInit {
-
   tratamientos: Tratamiento[] = [];
   drogas: Droga[] = [];
   mascotas: Mascota[] = [];
 
-  nuevoTratamiento: Partial<Tratamiento> = {
-    fecha: '',
-    droga: undefined,
-    mascota: undefined,
-    veterinario: { 
-      id: 0, nombre: '', cedula: '', correo: '', celular: '', contrasena: '',
-      fotoUrl: '', especialidad: '', numeroAtenciones: 0, rol: ''
-    }
-  };
+  // Modelo de formulario:
+  nuevoFecha   = new Date().toISOString().substring(0, 10);
+  nuevaDroga?  : Droga;
+  nuevaMascota?: Mascota;
 
   constructor(
-    private tratamientoService: TratamientoService,
-    private drogaService: DrogaService,
-    private mascotaService: MascotaService
+    private svcTrat: TratamientoService,
+    private svcDr: DrogaService,
+    private svcMs: MascotaService
   ) {}
 
   ngOnInit(): void {
-    this.obtenerTratamientos();
-    this.obtenerDrogas();
-    this.obtenerMascotas();
+    this.cargarTodo();
   }
 
-  obtenerTratamientos(): void {
-    this.tratamientoService.obtenerTratamientos().subscribe((data: Tratamiento[]) => {
-      this.tratamientos = data;
-    });
+  /** Carga tratamientos, drogas y mascotas */
+  private cargarTodo(): void {
+    this.svcTrat.obtenerTratamientos()
+      .subscribe(x => this.tratamientos = x);
+    this.svcDr.getAllDrogas()
+      .subscribe(x => this.drogas = x);
+    this.svcMs.getAllMascotas()
+      .subscribe(x => this.mascotas = x);
   }
 
-  obtenerDrogas(): void {
-    this.drogaService.getAllDrogas().subscribe((data: Droga[]) => {
-      this.drogas = data;
-    });
-  }
-
-  obtenerMascotas(): void {
-    this.mascotaService.getAllMascotas().subscribe((data: Mascota[]) => {
-      this.mascotas = data;
-    });
-  }
-
+  /** Crea un tratamiento y recarga la lista completa */
   crearTratamiento(): void {
-    if (!this.nuevoTratamiento.droga || !this.nuevoTratamiento.mascota) {
-      alert('❌ Debes seleccionar una droga y una mascota.');
-      return;
+    if (!this.nuevaDroga || !this.nuevaMascota) {
+      return alert('❌ Selecciona droga y mascota');
     }
 
-    const tratamientoEnviar: Tratamiento = {
-      id: 0,
-      fecha: this.nuevoTratamiento.fecha || '',
-      droga: { id: (this.nuevoTratamiento.droga as Droga).id } as Droga,
-      mascota: { id: (this.nuevoTratamiento.mascota as Mascota).id } as Mascota,
-      veterinario: { id: 1 } as Veterinario // O el veterinario logueado si manejas login
+    const payload = {
+      fecha:       this.nuevoFecha,
+      droga:       this.nuevaDroga.id,
+      mascota:     { id: this.nuevaMascota.id },
+      veterinario: { id: 1 }
     };
 
-    this.tratamientoService.crearTratamiento(tratamientoEnviar).subscribe({
-      next: () => {
-        alert('✅ Tratamiento creado correctamente');
-        this.obtenerTratamientos();
-        this.resetearFormulario();
-      },
-      error: () => {
-        alert('❌ Error al crear tratamiento');
-      }
-    });
+    console.log('📤 Payload:', payload);
+    this.svcTrat.crearTratamiento(payload)
+      .subscribe({
+        next: () => {
+          alert('✅ Tratamiento creado');
+          this.cargarTodo();       // recarga toda la lista
+          this.resetForm();
+        },
+        error: err => {
+          console.error('Error al crear tratamiento', err);
+          alert('❌ Error al crear tratamiento');
+        }
+      });
   }
 
-  resetearFormulario(): void {
-    this.nuevoTratamiento = {
-      fecha: '',
-      droga: undefined,
-      mascota: undefined,
-      veterinario: { 
-        id: 0, nombre: '', cedula: '', correo: '', celular: '', contrasena: '',
-        fotoUrl: '', especialidad: '', numeroAtenciones: 0, rol: ''
-      }
-    };
+  /** Reinicia el formulario */
+  resetForm(): void {
+    this.nuevoFecha    = new Date().toISOString().substring(0, 10);
+    this.nuevaDroga   = undefined;
+    this.nuevaMascota = undefined;
   }
 
-  obtenerNombreDroga(droga: Droga | number): string {
-    if (typeof droga === 'number') {
-      const encontrada = this.drogas.find(d => d.id === droga);
-      return encontrada ? encontrada.nombre : 'Desconocido';
-    }
-    return droga.nombre;
+  obtenerNombreDroga(d: Droga | number): string {
+    const id = typeof d === 'number' ? d : d.id;
+    return this.drogas.find(x => x.id === id)?.nombre || 'Desconocido';
   }
 
-  obtenerNombreMascota(mascota: Mascota | number): string {
-    if (typeof mascota === 'number') {
-      const encontrada = this.mascotas.find(m => m.id === mascota);
-      return encontrada ? encontrada.nombre : 'Desconocido';
-    }
-    return mascota.nombre;
+  obtenerNombreMascota(m: Mascota | number): string {
+    const id = typeof m === 'number' ? m : m.id;
+    return this.mascotas.find(x => x.id === id)?.nombre || 'Desconocido';
   }
 }

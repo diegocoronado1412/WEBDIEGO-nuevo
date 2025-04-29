@@ -1,51 +1,63 @@
 <div class="container mt-4">
-
     <h2 class="mb-4">Registrar Tratamiento</h2>
-  
     <form (ngSubmit)="crearTratamiento()">
       <div class="form-group mb-3">
-        <label for="droga">Selecciona la Droga:</label>
-        <select id="droga" class="form-control" [(ngModel)]="nuevoTratamiento.droga" name="droga" required>
-          <option [ngValue]="0" disabled>Seleccione una droga</option>
-          <option *ngFor="let droga of drogas" [ngValue]="droga.id">{{ droga.nombre }}</option>
-        </select>
+        <label>Fecha:</label>
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="nuevoFecha"
+          name="fecha"
+          required
+        />
       </div>
-  
       <div class="form-group mb-3">
-        <label for="mascota">Selecciona la Mascota:</label>
-        <select id="mascota" class="form-control" [(ngModel)]="nuevoTratamiento.mascota" name="mascota" required>
-          <option [ngValue]="0" disabled>Seleccione una mascota</option>
-          <option *ngFor="let mascota of mascotas" [ngValue]="mascota.id">{{ mascota.nombre }}</option>
+        <label>Droga:</label>
+        <select
+          class="form-control"
+          [(ngModel)]="nuevaDroga"
+          name="droga"
+          required
+        >
+          <option [ngValue]="undefined" disabled>Selecciona</option>
+          <option *ngFor="let d of drogas" [ngValue]="d">{{ d.nombre }}</option>
         </select>
       </div>
-  
-      <button type="submit" class="btn btn-success">Crear Tratamiento</button>
+      <div class="form-group mb-3">
+        <label>Mascota:</label>
+        <select
+          class="form-control"
+          [(ngModel)]="nuevaMascota"
+          name="mascota"
+          required
+        >
+          <option [ngValue]="undefined" disabled>Selecciona</option>
+          <option *ngFor="let m of mascotas" [ngValue]="m">{{ m.nombre }}</option>
+        </select>
+      </div>
+      <button class="btn btn-success w-100" type="submit">
+        CREAR TRATAMIENTO
+      </button>
     </form>
   
-    <hr>
+    <hr />
   
     <h3>Lista de Tratamientos</h3>
     <table class="table table-striped mt-3">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Fecha</th>
-          <th>Droga</th>
-          <th>Mascota</th>
-          <th>Veterinario</th>
+          <th>ID</th><th>Fecha</th><th>Droga</th><th>Mascota</th><th>Veterinario</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tratamiento of tratamientos">
-          <td>{{ tratamiento.id }}</td>
-          <td>{{ tratamiento.fecha | date: 'short' }}</td>
-          <td>{{ obtenerNombreDroga(tratamiento.droga) }}</td>
-          <td>{{ obtenerNombreMascota(tratamiento.mascota) }}</td>
-          <td>{{ tratamiento.veterinario.nombre || 'Desconocido' }}</td>
+        <tr *ngFor="let t of tratamientos">
+          <td>{{ t.id }}</td>
+          <td>{{ t.fecha | date:'short' }}</td>
+          <td>{{ obtenerNombreDroga(t.droga) }}</td>
+          <td>{{ obtenerNombreMascota(t.mascota) }}</td>
+          <td>{{ t.veterinario?.nombre || 'Desconocido' }}</td>
         </tr>
       </tbody>
-      
     </table>
-  
   </div>
   

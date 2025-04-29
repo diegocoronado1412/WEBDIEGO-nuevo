@@ -3,9 +3,17 @@ import { Mascota } from './mascota.model';
 import { Veterinario } from './veterinario.model';
 
 export interface Tratamiento {
-  id?: number;         // ← Opcional porque Spring lo genera
-  fecha?: string;      // ← Opcional porque el backend la pone
-  droga: Droga | number;  // ← Acepta Droga (cuando cargas) o solo número (cuando envías)
-  mascota: Mascota | number;  // ← Igual
-  veterinario: Veterinario;
+  /** Lo genera Spring */
+  id?: number;
+  /** Lo pone Spring */
+  fecha?: string;
+
+  /** Al leer viene Droga, al enviar usamos sólo el id */
+  droga: Droga | number;
+
+  /** Igual que droga */
+  mascota: Mascota | number;
+
+  /** Ahora puede venir undefined */
+  veterinario?: Veterinario;
 }
