@@ -1,1 +1,20 @@
-<p>veterinario-detalle works!</p>
+<div class="detalle-container" *ngIf="veterinario">
+    <h2>Detalle del Veterinario</h2>
+  
+    <div class="card">
+      <img [src]="veterinario.fotoUrl || 'https://via.placeholder.com/150'" alt="Foto del veterinario" />
+  
+      <div class="info">
+        <p><strong>Nombre:</strong> {{ veterinario.nombre }}</p>
+        <p><strong>Cédula:</strong> {{ veterinario.cedula }}</p>
+        <p><strong>Especialidad:</strong> {{ veterinario.especialidad }}</p>
+        <p><strong>Rol:</strong> {{ veterinario.rol }}</p>
+        <p><strong>Atenciones:</strong> {{ veterinario.numeroAtenciones }}</p>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="!veterinario">
+    <p>Veterinario no encontrado o cargando...</p>
+  </div>
+  

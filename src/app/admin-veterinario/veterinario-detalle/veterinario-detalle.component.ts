@@ -10,20 +10,21 @@ import { VeterinarioService, Veterinario } from 'src/app/services/veterinario.se
 export class VeterinarioDetalleComponent implements OnInit {
   veterinario: Veterinario | null = null;
 
-  constructor(private route: ActivatedRoute, private veterinarioService: VeterinarioService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private veterinarioService: VeterinarioService
+  ) {}
 
   ngOnInit(): void {
-    const cedula = this.route.snapshot.paramMap.get('id');
-    console.log('🔍 Cedula para detalle:', cedula);
+    const cedula = this.route.snapshot.paramMap.get('cedula'); 
 
     if (cedula) {
       this.veterinarioService.obtenerPorCedula(cedula).subscribe({
         next: (data: Veterinario) => {
-          console.log('🐶 Veterinario detalle recibido:', data);
           this.veterinario = data;
         },
         error: (err: any) => {
-          console.error('❌ Error al obtener detalle del veterinario:', err);
+          console.error('Error al obtener detalle del veterinario:', err);
         }
       });
     }

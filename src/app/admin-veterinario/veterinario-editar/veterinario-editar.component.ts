@@ -12,6 +12,7 @@ export class VeterinarioEditarComponent implements OnInit {
 
   veterinarioForm!: FormGroup;
   cedula!: string;
+  veterinarioOriginal!: Veterinario; // ⚠️ Guarda el original para recuperar el id
 
   constructor(
     private veterinarioService: VeterinarioService,
@@ -48,6 +49,8 @@ export class VeterinarioEditarComponent implements OnInit {
           return;
         }
 
+        this.veterinarioOriginal = veterinario; // 💾 Guarda el original con ID
+
         this.veterinarioForm.patchValue({
           nombre: veterinario.nombre,
           cedula: veterinario.cedula,
@@ -69,8 +72,11 @@ export class VeterinarioEditarComponent implements OnInit {
   actualizarVeterinario(): void {
     if (this.veterinarioForm.valid) {
       const veterinarioActualizado: Veterinario = {
-        ...this.veterinarioForm.value
+        ...this.veterinarioOriginal,               // conserva el id original
+        ...this.veterinarioForm.value              // sobrescribe con los datos actualizados
       };
+
+      console.log('🔄 Enviando al backend:', veterinarioActualizado); // puedes eliminar esto luego
 
       this.veterinarioService.actualizarPorCedula(this.cedula, veterinarioActualizado).subscribe({
         next: () => {

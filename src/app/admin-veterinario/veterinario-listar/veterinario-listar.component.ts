@@ -19,19 +19,20 @@ export class VeterinarioListarComponent implements OnInit {
     });
   }
 
-  irAEditar(id: number): void {
-    this.router.navigate(['/admin-veterinario/editar', id]);
+  irAEditar(cedula: string): void {
+    this.router.navigate(['/admin-veterinario/editar', cedula]);
   }
-
-  irADetalle(id: number): void {
-    this.router.navigate(['/admin-veterinario/detalle', id]);
+  
+  irADetalle(cedula: string): void {
+    this.router.navigate(['/admin-veterinario/detalle', cedula]);
   }
-
-  eliminar(id: number): void {
+  
+  eliminar(cedula: string): void {
     if (confirm('¿Está seguro de eliminar este veterinario?')) {
-      this.veterinarioService.eliminar(id).subscribe(() => {
-        this.veterinarios = this.veterinarios.filter(v => v.id !== id);
+      this.veterinarioService.eliminar(cedula).subscribe(() => {
+        this.veterinarios = this.veterinarios.filter(v => v.cedula !== cedula);
       });
     }
   }
+  
 }

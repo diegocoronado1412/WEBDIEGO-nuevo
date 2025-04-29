@@ -17,9 +17,9 @@
           <td>{{ vet.cedula }}</td>
           <td>{{ vet.especialidad }}</td>
           <td>
-            <button (click)="irADetalle(vet.id)">Ver</button>
+            <button (click)="irADetalle(vet.cedula)">Ver</button>
             <button (click)="irAEditar(vet.cedula)">Editar</button>
-            <button (click)="eliminar(vet.id)">Eliminar</button>
+            <button (click)="eliminar(vet.cedula)">Eliminar</button>
           </td>
         </tr>
       </tbody>

@@ -1,0 +1,53 @@
+.formulario-editar, .formulario-crear {
+    background: #fff;
+    padding: 24px;
+    margin: 30px auto;
+    max-width: 600px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 24px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .mt-3 {
+    margin-top: 24px;
+  }
+  

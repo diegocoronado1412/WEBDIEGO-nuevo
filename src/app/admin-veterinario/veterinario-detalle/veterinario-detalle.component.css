@@ -1,0 +1,58 @@
+.detalle-container {
+    max-width: 600px;
+    margin: 30px auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  
+  .card {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+  .card img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+  }
+  
+  .info p {
+    margin: 8px 0;
+    font-size: 16px;
+  }
+  /* Contenedor principal */
+.detalle-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Imagen del veterinario */
+  .detalle-container img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  
+  /* Información del veterinario */
+  .detalle-container p {
+    font-size: 16px;
+    color: #333;
+    margin: 8px 0;
+  }
+  
+  .detalle-container strong {
+    color: #2e7d32;
+  }
+  
