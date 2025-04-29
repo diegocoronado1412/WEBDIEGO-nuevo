@@ -1,0 +1,77 @@
+<!-- src/app/shared/sidebar/sidebar.component.html -->
+<div class="sidebar">
+    <div class="sidebar-header">
+      <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar"/>
+      <h2>Vibra Animal</h2>
+    </div>
+    <ul class="sidebar-menu">
+      <!-- Veterinario -->
+      <ng-container *ngIf="rol === 'veterinario'; else clienteMenu">
+        <li>
+          <a routerLink="/dashboard-veterinario" routerLinkActive="active">
+            <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/veterinario-cliente" routerLinkActive="active">
+            <i class="fas fa-users"></i><span>Cliente</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/veterinario-mascotas" routerLinkActive="active">
+            <i class="fas fa-paw"></i><span>Mascotas</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/veterinario-tratamientos" routerLinkActive="active">
+            <i class="fas fa-stethoscope"></i><span>Tratamientos</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/veterinario-recetas" routerLinkActive="active">
+            <i class="fas fa-pills"></i><span>Recetas</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/veterinario-perfil" routerLinkActive="active">
+            <i class="fas fa-user"></i><span>Perfil</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="logout()" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i><span>Salir</span>
+          </a>
+        </li>
+      </ng-container>
+  
+      <!-- Cliente -->
+      <ng-template #clienteMenu>
+        <li>
+          <a routerLink="/dashboard-cliente" routerLinkActive="active">
+            <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/cliente/mascotas" routerLinkActive="active">
+            <i class="fas fa-paw"></i><span>Mis Mascotas</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/cliente/perfil" routerLinkActive="active">
+            <i class="fas fa-user"></i><span>Perfil</span>
+          </a>
+        </li>
+        <li><a><i class="fas fa-calendar-check"></i><span>Apartar Cita</span></a></li>
+        <li><a><i class="fas fa-pills"></i><span>Mis Recetas</span></a></li>
+        <li><a><i class="fas fa-stethoscope"></i><span>Mis Tratamientos</span></a></li>
+        <li><a><i class="fas fa-store"></i><span>Tienda</span></a></li>
+        <li><a><i class="fas fa-shopping-cart"></i><span>Carrito</span></a></li>
+        <li>
+          <a (click)="logout()" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i><span>Salir</span>
+          </a>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+  
