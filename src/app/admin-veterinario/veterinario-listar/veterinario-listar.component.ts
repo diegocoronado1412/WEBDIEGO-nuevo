@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { VeterinarioService, Veterinario } from 'src/app/services/veterinario.service';
 import { Router } from '@angular/router';
+import { VeterinarioService } from 'src/app/services/veterinario.service';
 
 @Component({
   selector: 'app-veterinario-listar',
@@ -8,30 +8,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./veterinario-listar.component.css']
 })
 export class VeterinarioListarComponent implements OnInit {
-  veterinarios: Veterinario[] = [];
+  veterinarios: any[] = [];
 
-  constructor(private veterinarioService: VeterinarioService, private router: Router) { }
+  constructor(private veterinarioService: VeterinarioService, private router: Router) {}
 
   ngOnInit(): void {
     this.veterinarioService.obtenerTodos().subscribe({
-      next: (data) => this.veterinarios = data,
-      error: (err) => console.error('Error al obtener veterinarios:', err)
+      next: data => this.veterinarios = data,
+      error: err => console.error('Error al cargar veterinarios:', err)
     });
   }
 
-  editarVeterinario(id: number): void {
+  irAEditar(id: number): void {
     this.router.navigate(['/admin-veterinario/editar', id]);
   }
 
-  verDetalle(id: number): void {
+  irADetalle(id: number): void {
     this.router.navigate(['/admin-veterinario/detalle', id]);
   }
 
-  eliminarVeterinario(id: number): void {
-    if (confirm('¿Estás seguro de eliminar este veterinario?')) {
-      this.veterinarioService.eliminar(id).subscribe({
-        next: () => this.veterinarios = this.veterinarios.filter(v => v.id !== id),
-        error: (err) => console.error('Error al eliminar veterinario:', err)
+  eliminar(id: number): void {
+    if (confirm('¿Está seguro de eliminar este veterinario?')) {
+      this.veterinarioService.eliminar(id).subscribe(() => {
+        this.veterinarios = this.veterinarios.filter(v => v.id !== id);
       });
     }
   }

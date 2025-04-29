@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { VeterinarioService, Veterinario } from 'src/app/services/veterinario.service';
+import { VeterinarioService } from 'src/app/services/veterinario.service';
 
 @Component({
   selector: 'app-veterinario-crear',
@@ -8,21 +8,31 @@ import { VeterinarioService, Veterinario } from 'src/app/services/veterinario.se
   styleUrls: ['./veterinario-crear.component.css']
 })
 export class VeterinarioCrearComponent {
-  veterinario: Veterinario = {
-    id: 0,
+  veterinario = {
     nombre: '',
     cedula: '',
-    correo: '',
-    celular: ''
-    // Inicializa otros campos según tu modelo
+    especialidad: '',
+    fotoUrl: '',
+    contrasena: '',      // 👈 sin ñ
+    correo: '',          // 👈 agregar
+    celular: '',         // 👈 agregar
+    rol: 'veterinario',
+    numeroAtenciones: 0
   };
+  
 
-  constructor(private veterinarioService: VeterinarioService, private router: Router) { }
+  constructor(private veterinarioService: VeterinarioService, private router: Router) {}
 
-  guardarVeterinario(): void {
+  guardar(): void {
     this.veterinarioService.crear(this.veterinario).subscribe({
-      next: () => this.router.navigate(['/admin-veterinario']),
-      error: (err) => console.error('Error al crear veterinario:', err)
+      next: () => {
+        alert('Veterinario creado exitosamente.');
+        this.router.navigate(['/admin-veterinario/listar']);
+      },
+      error: err => {
+        console.error('Error al crear veterinario:', err);
+        alert('Error al crear veterinario.');
+      }
     });
   }
 }

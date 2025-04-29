@@ -1,1 +1,35 @@
-<p>veterinario-crear works!</p>
+<main class="formulario-veterinario">
+    <h2>Registrar Veterinario</h2>
+    
+    <form (ngSubmit)="guardar()" #form="ngForm">
+      <div class="form-group">
+        <label>Nombre:</label>
+        <input type="text" [(ngModel)]="veterinario.nombre" name="nombre" required />
+      </div>
+  
+      <div class="form-group">
+        <label>Cédula:</label>
+        <input type="text" [(ngModel)]="veterinario.cedula" name="cedula" required />
+      </div>
+  
+      <div class="form-group">
+        <label>Especialidad:</label>
+        <input type="text" [(ngModel)]="veterinario.especialidad" name="especialidad" required />
+      </div>
+  
+      <div class="form-group">
+        <label>Foto URL:</label>
+        <input type="text" [(ngModel)]="veterinario.fotoUrl" name="fotoUrl" />
+      </div>
+  
+      <div class="form-group">
+        <label>Contraseña:</label>
+        <input type="password" [(ngModel)]="veterinario.contrasena" name="contrasena" required />
+    </div>
+  
+      <button type="submit" [disabled]="form.invalid" class="btn-guardar">
+        Guardar
+      </button>
+    </form>
+  </main>
+  

@@ -1,1 +1,28 @@
-<p>veterinario-listar works!</p>
+<main class="contenedor-listado">
+    <h2>Listado de Veterinarios</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Cédula</th>
+          <th>Especialidad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vet of veterinarios">
+          <td>{{ vet.id }}</td>
+          <td>{{ vet.nombre }}</td>
+          <td>{{ vet.cedula }}</td>
+          <td>{{ vet.especialidad }}</td>
+          <td>
+            <button (click)="irADetalle(vet.id)">Ver</button>
+            <button (click)="irAEditar(vet.cedula)">Editar</button>
+            <button (click)="eliminar(vet.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+  

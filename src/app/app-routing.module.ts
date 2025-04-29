@@ -7,6 +7,7 @@ import { VeterinarioClienteComponent } from './pages/veterinario-cliente/veterin
 import { VeterinarioTratamientosComponent } from './pages/veterinario-tratamientos/veterinario-tratamientos.component';
 import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component'; 
 import { VeterinarioListarComponent } from './admin-veterinario/veterinario-listar/veterinario-listar.component';
+import { VeterinarioEditarComponent } from './admin-veterinario/veterinario-editar/veterinario-editar.component';
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./core/core.module').then(m => m.CoreModule) },
@@ -19,6 +20,8 @@ const routes: Routes = [
   { path: 'veterinario-mascotas', component: VeterinarioMascotasComponent },
   { path: 'veterinario-tratamientos', component: VeterinarioTratamientosComponent },
   { path: 'dashboard-admin', component: DashboardAdminComponent },
+  { path: 'admin-veterinario/editar/:cedula', component: VeterinarioEditarComponent },
+
   {
     path: 'admin-veterinario',
     loadChildren: () =>

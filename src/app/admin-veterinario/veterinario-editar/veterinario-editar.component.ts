@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VeterinarioService, Veterinario } from 'src/app/services/veterinario.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-veterinario-editar',
@@ -8,33 +9,81 @@ import { VeterinarioService, Veterinario } from 'src/app/services/veterinario.se
   styleUrls: ['./veterinario-editar.component.css']
 })
 export class VeterinarioEditarComponent implements OnInit {
-  veterinario: Veterinario = {
-    id: 0,
-    nombre: '',
-    cedula: '',
-    correo: '',
-    celular: ''
-    // Inicializa otros campos según tu modelo
-  };
+
+  veterinarioForm!: FormGroup;
+  cedula!: string;
 
   constructor(
+    private veterinarioService: VeterinarioService,
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
-    private veterinarioService: VeterinarioService
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.veterinarioService.obtenerPorId(id).subscribe({
-      next: (data) => this.veterinario = data,
-      error: (err) => console.error('Error al obtener veterinario:', err)
+    const cedulaParam = this.route.snapshot.paramMap.get('cedula');
+    if (!cedulaParam) {
+      alert('Cédula no proporcionada');
+      this.router.navigate(['/admin-veterinario']);
+      return;
+    }
+
+    this.cedula = cedulaParam;
+
+    this.veterinarioForm = this.formBuilder.group({
+      nombre: ['', [Validators.required, Validators.minLength(2)]],
+      cedula: ['', [Validators.required]],
+      especialidad: ['', [Validators.required]],
+      fotoUrl: [''],
+      contrasena: ['', [Validators.required, Validators.minLength(6)]],
+      rol: ['veterinario'],
+      numeroAtenciones: [0]
+    });
+
+    this.veterinarioService.obtenerPorCedula(this.cedula).subscribe({
+      next: (veterinario: Veterinario) => {
+        if (!veterinario) {
+          alert('Veterinario no encontrado');
+          this.router.navigate(['/admin-veterinario']);
+          return;
+        }
+
+        this.veterinarioForm.patchValue({
+          nombre: veterinario.nombre,
+          cedula: veterinario.cedula,
+          especialidad: veterinario.especialidad || '',
+          fotoUrl: veterinario.fotoUrl || '',
+          contrasena: veterinario.contrasena || '',
+          rol: veterinario.rol || 'veterinario',
+          numeroAtenciones: veterinario.numeroAtenciones || 0
+        });
+      },
+      error: (error: any) => {
+        console.error('Error cargando veterinario', error);
+        alert('No se pudo cargar el veterinario');
+        this.router.navigate(['/admin-veterinario']);
+      }
     });
   }
 
   actualizarVeterinario(): void {
-    this.veterinarioService.actualizar(this.veterinario.id, this.veterinario).subscribe({
-      next: () => this.router.navigate(['/admin-veterinario']),
-      error: (err) => console.error('Error al actualizar veterinario:', err)
-    });
+    if (this.veterinarioForm.valid) {
+      const veterinarioActualizado: Veterinario = {
+        ...this.veterinarioForm.value
+      };
+
+      this.veterinarioService.actualizarPorCedula(this.cedula, veterinarioActualizado).subscribe({
+        next: () => {
+          alert('Veterinario actualizado correctamente');
+          this.router.navigate(['/admin-veterinario']);
+        },
+        error: (error: any) => {
+          console.error('Error actualizando veterinario', error);
+          alert('Error al actualizar el veterinario');
+        }
+      });
+    } else {
+      alert('Por favor complete todos los campos correctamente.');
+    }
   }
 }

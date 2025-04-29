@@ -3,19 +3,23 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Veterinario {
-  id: number;
+  id?: number;
   nombre: string;
   cedula: string;
   correo: string;
   celular: string;
-  // Agrega otros campos según tu modelo
+  especialidad: string;   
+  fotoUrl: string;  
+  rol: string;    
+  contrasena: string;   
+  numeroAtenciones: number; 
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class VeterinarioService {
-  private apiUrl = 'http://localhost:8090/api/veterinarios';
+  private apiUrl = 'http://localhost:8090/api/veterinario';
 
   constructor(private http: HttpClient) { }
 
@@ -23,13 +27,19 @@ export class VeterinarioService {
     return this.http.get<Veterinario[]>(this.apiUrl);
   }
 
-  obtenerPorId(id: number): Observable<Veterinario> {
-    return this.http.get<Veterinario>(`${this.apiUrl}/${id}`);
+  obtenerPorCedula(cedula: string): Observable<Veterinario> {
+    return this.http.get<Veterinario>(`${this.apiUrl}/${cedula}`);
   }
+  
 
   crear(veterinario: Veterinario): Observable<Veterinario> {
-    return this.http.post<Veterinario>(this.apiUrl, veterinario);
+    return this.http.post<Veterinario>(`${this.apiUrl}/registrar`, veterinario);
   }
+  
+  actualizarPorCedula(cedula: string, veterinario: Veterinario): Observable<Veterinario> {
+    return this.http.put<Veterinario>(`${this.apiUrl}/${cedula}`, veterinario);
+  }
+  
 
   actualizar(id: number, veterinario: Veterinario): Observable<Veterinario> {
     return this.http.put<Veterinario>(`${this.apiUrl}/${id}`, veterinario);
