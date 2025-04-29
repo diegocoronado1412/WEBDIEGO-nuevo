@@ -6,6 +6,7 @@ import { VeterinarioListarComponent } from './veterinario-listar/veterinario-lis
 import { VeterinarioCrearComponent } from './veterinario-crear/veterinario-crear.component';
 import { VeterinarioEditarComponent } from './veterinario-editar/veterinario-editar.component';
 import { VeterinarioDetalleComponent } from './veterinario-detalle/veterinario-detalle.component';
+import { VeterinarioMenuComponent } from './veterinario-menu/veterinario-menu.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { VeterinarioDetalleComponent } from './veterinario-detalle/veterinario-d
     VeterinarioListarComponent,
     VeterinarioCrearComponent,
     VeterinarioEditarComponent,
-    VeterinarioDetalleComponent
+    VeterinarioDetalleComponent,
+    VeterinarioMenuComponent
   ],
   imports: [
     CommonModule,
