@@ -5,7 +5,7 @@ import { DashboardVeterinarioComponent } from './pages/dashboard-veterinario/das
 import { VeterinarioMascotasComponent } from './pages/veterinario-mascotas/veterinario-mascotas.component';
 import { VeterinarioClienteComponent } from './pages/veterinario-cliente/veterinario-cliente.component';
 import { VeterinarioTratamientosComponent } from './pages/veterinario-tratamientos/veterinario-tratamientos.component';
-
+import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component'; 
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./core/core.module').then(m => m.CoreModule) },
@@ -16,8 +16,9 @@ const routes: Routes = [
   { path: 'dashboard-veterinario', component: DashboardVeterinarioComponent },
   { path: 'veterinario-cliente', component: VeterinarioClienteComponent },
   { path: 'veterinario-mascotas', component: VeterinarioMascotasComponent },
-  { path: 'veterinario-tratamientos', component: VeterinarioTratamientosComponent }
-
+  { path: 'veterinario-tratamientos', component: VeterinarioTratamientosComponent },
+  { path: 'dashboard-admin', component: DashboardAdminComponent }
+  
 ];
 
 @NgModule({

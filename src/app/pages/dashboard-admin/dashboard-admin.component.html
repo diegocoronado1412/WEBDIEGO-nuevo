@@ -1,0 +1,85 @@
+<!-- src/app/pages/dashboard-admin/dashboard-admin.component.html -->
+
+<div class="sidebar">
+    <div class="sidebar-header">
+      <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar"/>
+      <h2>Vibra Animal</h2>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a routerLink="/dashboard-admin" routerLinkActive="active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+      <li><a routerLink="/admin-veterinario" routerLinkActive="active"><i class="fas fa-user-md"></i><span>Veterinario</span></a></li>
+      <li><a routerLink="/login" class="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a></li>
+    </ul>
+  </div>
+  
+  <div class="main-content">
+    <header>
+      <h1>Panel de Administrador</h1>
+      <div class="user-info">
+        <p>Bienvenido, Administrador</p>
+      </div>
+    </header>
+  
+    <main>
+      <p>Aquí puedes gestionar los veterinarios y monitorear el sistema.</p>
+  
+      <!-- Estadísticas Rápidas -->
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <i class="fas fa-user-md"></i>
+          <div class="stat-info">
+            <h3>Veterinarios registrados</h3>
+            <p>{{ cantidadVeterinarios }}</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-paw"></i>
+          <div class="stat-info">
+            <h3>Total Mascotas</h3>
+            <p>{{ cantidadMascotas }}</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-users"></i>
+          <div class="stat-info">
+            <h3>Total Clientes</h3>
+            <p>{{ cantidadClientes }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Mensaje bienvenida -->
+      <div class="admin-welcome">
+        <h2>Gestión del sistema</h2>
+        <p>Utiliza el menú lateral para administrar veterinarios y configurar el sistema de Vibra Animal.</p>
+      </div>
+    </main>
+  </div>
+  
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <p>Email: info&#64;vibraanimal.com</p>
+        <p>Teléfono: (123) 456-7890</p>
+        <p>Dirección: Calle Principal #123, Ciudad</p>
+      </div>
+      <div class="footer-section">
+        <h3>Enlaces rápidos</h3>
+        <ul>
+          <li><a routerLink="/servicios">Servicios</a></li>
+          <li><a routerLink="/contacto">Contacto</a></li>
+          <li><a routerLink="/login">Área de clientes</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Síguenos</h3>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Vibra Animal. Todos los derechos reservados.</p>
+    </div>
+  </footer>
