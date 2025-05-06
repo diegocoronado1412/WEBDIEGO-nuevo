@@ -15,6 +15,7 @@ import { VeterinarioMascotasComponent } from './pages/veterinario-mascotas/veter
 import { VeterinarioTratamientosComponent } from './pages/veterinario-tratamientos/veterinario-tratamientos.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,9 @@ import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin
     ReactiveFormsModule,
     FormsModule,
     CoreModule,
-    AuthModule
+    AuthModule,
+    NgChartsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,7 +14,10 @@ export class ClienteEditarComponent implements OnInit {
   selectedClienteId!: number;
   clienteForm!: FormGroup;
 
-  constructor(private clienteService: ClienteService, private formBuilder: FormBuilder) {}
+  constructor(
+    private clienteService: ClienteService,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.clienteService.findAll().subscribe(clientes => {
@@ -23,26 +26,40 @@ export class ClienteEditarComponent implements OnInit {
 
     this.clienteForm = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.minLength(2)]],
-      cedula: ['', [Validators.required]],
+      cedula: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
       celular: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      contraseña: ['', [Validators.minLength(6)]]
+      contrasena: [''],
+      rol: ['cliente']
     });
   }
 
-  cargarCliente() {
+  cargarCliente(): void {
+    if (!this.selectedClienteId) {
+      alert('Selecciona un cliente para cargar los datos.');
+      return;
+    }
+
     this.clienteService.getCliente(this.selectedClienteId).subscribe(cliente => {
       this.clienteForm.patchValue({
         nombre: cliente.nombre,
         cedula: cliente.cedula,
         correo: cliente.correo,
         celular: cliente.celular,
-        contraseña: cliente.contrasena
+        contrasena: '',
+        rol: cliente.rol || 'cliente'
       });
     });
   }
 
-  actualizarCliente() {
+  actualizarCliente(): void {
+    const contrasena = this.clienteForm.get('contrasena')?.value;
+
+    if (contrasena && contrasena.length < 6) {
+      alert('Si deseas cambiar la contraseña, debe tener al menos 6 caracteres.');
+      return;
+    }
+
     if (this.clienteForm.valid) {
       const clienteActualizado: Cliente = {
         id: this.selectedClienteId,
@@ -50,12 +67,10 @@ export class ClienteEditarComponent implements OnInit {
       };
 
       this.clienteService.actualizarCliente(this.selectedClienteId, clienteActualizado).subscribe(() => {
-        console.log('Cliente actualizado');
         alert('Cliente actualizado correctamente');
       });
     } else {
-      console.error('Formulario inválido');
-      alert('Por favor complete los campos correctamente');
+      alert('Por favor completa todos los campos correctamente');
     }
   }
 }

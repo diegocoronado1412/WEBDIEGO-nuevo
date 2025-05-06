@@ -7,19 +7,27 @@ import { Observable } from 'rxjs';
 })
 export class AdminService {
 
-  private baseUrl = 'http://localhost:8090/api'; // Ajusta si tu backend usa otro puerto o ruta
+  private baseUrl = 'http://localhost:8090/api';
 
   constructor(private http: HttpClient) {}
 
+  // ✔ Corregido: Veterinarios (ruta backend: /api/veterinario)
   getVeterinarios(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/veterinarios`);
+    return this.http.get<any[]>(`${this.baseUrl}/veterinario`);
   }
 
+  // ✔ Corregido: Mascotas (ruta backend: /api/mascota/listar)
   getMascotas(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/mascotas`);
+    return this.http.get<any[]>(`${this.baseUrl}/mascota/listar`);
   }
 
+  // ✔ Corregido: Clientes (ruta backend: /api/cliente/listar)
   getClientes(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/clientes`);
+    return this.http.get<any[]>(`${this.baseUrl}/cliente/listar`);
+  }
+
+  // ✔ Tratamientos ya funcionaba correctamente
+  getTratamientos(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/tratamientos`);
   }
 }

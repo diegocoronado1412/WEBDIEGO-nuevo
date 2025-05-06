@@ -27,7 +27,17 @@ export class TratamientoService {
     );
   }
 
+  /**
+   * Obtiene todos los tratamientos
+   */
   obtenerTratamientos(): Observable<Tratamiento[]> {
     return this.http.get<Tratamiento[]>(this.apiUrl);
+  }
+
+  /**
+   * Obtiene los tratamientos asociados a una mascota específica
+   */
+  obtenerTratamientosPorMascota(idMascota: number): Observable<Tratamiento[]> {
+    return this.http.get<Tratamiento[]>(`${this.apiUrl}/mascota/${idMascota}`);
   }
 }
