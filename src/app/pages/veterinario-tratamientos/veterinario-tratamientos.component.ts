@@ -26,6 +26,8 @@ export class VeterinarioTratamientosComponent implements OnInit {
   nuevaDroga?: Droga;
   nuevaMascota?: Mascota;
 
+  tratamientoEditando?: Tratamiento;
+
   constructor(
     private svcTrat: TratamientoService,
     private svcDr: DrogaService,
@@ -43,17 +45,12 @@ export class VeterinarioTratamientosComponent implements OnInit {
       mascotas: this.svcMs.getAllMascotas()
     }).subscribe({
       next: ({ tratamientos, drogas, mascotas }) => {
-        this.tratamientos = [...tratamientos]; // Clon para forzar renderizado
+        this.tratamientos = [...tratamientos];
         this.drogas = drogas;
         this.mascotas = mascotas;
 
         this.cantidadTratamientos = tratamientos.length;
         this.cantidadPacientes = mascotas.length;
-
-        console.log(`🧪 Tratamientos recibidos (${tratamientos.length}):`, tratamientos);
-        if (tratamientos.length <= 1) {
-          console.warn('⚠️ Solo se recibió un tratamiento. Verifica el backend o filtros.');
-        }
       },
       error: err => {
         console.error('❌ Error al cargar datos', err);
@@ -86,6 +83,60 @@ export class VeterinarioTratamientosComponent implements OnInit {
     });
   }
 
+  editarTratamiento(trat: Tratamiento): void {
+    this.tratamientoEditando = { ...trat };
+  }
+
+  guardarCambios(): void {
+    if (!this.tratamientoEditando) return;
+
+    const { id, nombre, descripcion, droga, mascota, veterinario } = this.tratamientoEditando;
+
+    if (!id || !nombre || !descripcion || !droga || !mascota || !veterinario) {
+      return alert('❌ Campos incompletos al guardar');
+    }
+
+    const payload = {
+      nombre,
+      descripcion,
+      droga: {
+        id: typeof droga === 'number' ? droga : (droga.id ?? 0)
+      },
+      mascota: {
+        id: typeof mascota === 'number' ? mascota : (mascota.id ?? 0)
+      },
+      veterinario: {
+        id: typeof veterinario === 'number' ? veterinario : (veterinario.id ?? 0)
+      }
+    };
+
+    if (payload.droga.id === 0 || payload.mascota.id === 0 || payload.veterinario.id === 0) {
+      return alert('❌ ID inválido al guardar tratamiento');
+    }
+
+    this.svcTrat.actualizarTratamiento(id, payload).subscribe({
+      next: () => {
+        this.tratamientoEditando = undefined;
+        this.cargarTodo();
+      },
+      error: () => alert('Error actualizando tratamiento')
+    });
+  }
+
+  eliminarTratamiento(id?: number): void {
+    if (!id) {
+      alert('ID inválido para eliminar');
+      return;
+    }
+
+    if (!confirm('¿Eliminar este tratamiento?')) return;
+
+    this.svcTrat.eliminarTratamiento(id).subscribe({
+      next: () => this.cargarTodo(),
+      error: () => alert('No se pudo eliminar')
+    });
+  }
+
   resetForm(): void {
     this.nuevoFecha = new Date().toISOString().substring(0, 10);
     this.nuevaDroga = undefined;
@@ -93,7 +144,7 @@ export class VeterinarioTratamientosComponent implements OnInit {
   }
 
   trackByTratId(index: number, item: Tratamiento): number {
-    return item.id!;
+    return item.id ?? index;
   }
 
   obtenerNombreDroga(d: Droga | number): string {

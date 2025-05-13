@@ -40,4 +40,32 @@ export class TratamientoService {
   obtenerTratamientosPorMascota(idMascota: number): Observable<Tratamiento[]> {
     return this.http.get<Tratamiento[]>(`${this.apiUrl}/mascota/${idMascota}`);
   }
+  /**
+ * Actualiza un tratamiento existente por ID
+ */
+actualizarTratamiento(id: number, payload: {
+  nombre: string;
+  descripcion: string;
+  droga: { id: number };
+  mascota: { id: number };
+  veterinario: { id: number };
+}): Observable<void> {
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this.http.put<void>(
+    `${this.apiUrl}/${id}`,
+    payload,
+    { headers, responseType: 'text' as 'json' }
+  );
+}
+
+/**
+ * Elimina un tratamiento por ID
+ */
+eliminarTratamiento(id: number): Observable<void> {
+  return this.http.delete<void>(
+    `${this.apiUrl}/${id}`,
+    { responseType: 'text' as 'json' }
+  );
+}
+
 }

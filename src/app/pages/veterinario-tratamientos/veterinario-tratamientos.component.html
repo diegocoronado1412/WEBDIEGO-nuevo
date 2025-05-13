@@ -1,6 +1,6 @@
 <aside class="sidebar">
   <div class="sidebar-header">
-    <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar"/>
+    <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar" />
     <h2>Vibra Animal</h2>
   </div>
   <ul class="sidebar-menu">
@@ -53,45 +53,53 @@
     <form class="formulario-tratamiento" (ngSubmit)="crearTratamiento()">
       <div class="form-group mb-3">
         <label for="fecha">Fecha:</label>
-        <input
-          id="fecha"
-          type="date"
-          class="form-control"
-          [(ngModel)]="nuevoFecha"
-          name="fecha"
-          required
-        />
+        <input id="fecha" type="date" class="form-control" [(ngModel)]="nuevoFecha" name="fecha" required />
       </div>
       <div class="form-group mb-3">
         <label for="droga">Droga:</label>
-        <select
-          id="droga"
-          class="form-control"
-          [(ngModel)]="nuevaDroga"
-          name="droga"
-          required
-        >
+        <select id="droga" class="form-control" [(ngModel)]="nuevaDroga" name="droga" required>
           <option [ngValue]="undefined" disabled>Selecciona</option>
           <option *ngFor="let d of drogas" [ngValue]="d">{{ d.nombre }}</option>
         </select>
       </div>
       <div class="form-group mb-3">
         <label for="mascota">Mascota:</label>
-        <select
-          id="mascota"
-          class="form-control"
-          [(ngModel)]="nuevaMascota"
-          name="mascota"
-          required
-        >
+        <select id="mascota" class="form-control" [(ngModel)]="nuevaMascota" name="mascota" required>
           <option [ngValue]="undefined" disabled>Selecciona</option>
           <option *ngFor="let m of mascotas" [ngValue]="m">{{ m.nombre }}</option>
         </select>
       </div>
-      <button class="crear-btn" type="submit">
-        CREAR TRATAMIENTO
-      </button>
+      <button class="crear-btn" type="submit">CREAR TRATAMIENTO</button>
     </form>
+
+    <!-- Formulario de edición -->
+    <div *ngIf="tratamientoEditando" class="mt-5">
+      <h3>Editar Tratamiento</h3>
+      <form (ngSubmit)="guardarCambios()" class="formulario-tratamiento">
+        <div class="form-group mb-3">
+          <label>Nombre:</label>
+          <input [(ngModel)]="tratamientoEditando.nombre" name="nombre" class="form-control" required />
+        </div>
+        <div class="form-group mb-3">
+          <label>Descripción:</label>
+          <input [(ngModel)]="tratamientoEditando.descripcion" name="descripcion" class="form-control" required />
+        </div>
+        <div class="form-group mb-3">
+          <label>Droga:</label>
+          <select [(ngModel)]="tratamientoEditando.droga" name="droga" class="form-control" required>
+            <option *ngFor="let d of drogas" [ngValue]="d">{{ d.nombre }}</option>
+          </select>
+        </div>
+        <div class="form-group mb-3">
+          <label>Mascota:</label>
+          <select [(ngModel)]="tratamientoEditando.mascota" name="mascota" class="form-control" required>
+            <option *ngFor="let m of mascotas" [ngValue]="m">{{ m.nombre }}</option>
+          </select>
+        </div>
+        <button class="crear-btn" type="submit">GUARDAR CAMBIOS</button>
+        <button class="btn btn-secondary ms-2" type="button" (click)="tratamientoEditando = undefined">Cancelar</button>
+      </form>
+    </div>
 
     <hr />
 
@@ -104,20 +112,24 @@
           <th>Droga</th>
           <th>Mascota</th>
           <th>Veterinario</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody *ngIf="tratamientos.length > 0; else sinDatos">
         <tr *ngFor="let t of tratamientos.slice(0, 50); trackBy: trackByTratId">
           <td>{{ t.id }}</td>
-          <td>{{ t.fecha | date:'short' }}</td>
+          <td>{{ t.fecha | date: 'short' }}</td>
           <td>{{ obtenerNombreDroga(t.droga) }}</td>
           <td>{{ obtenerNombreMascota(t.mascota) }}</td>
           <td>{{ t.veterinario?.nombre || 'Desconocido' }}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-2" (click)="editarTratamiento(t)">Editar</button>
+            <button class="btn btn-sm btn-danger" (click)="eliminarTratamiento(t.id)">Eliminar</button>
+          </td>
         </tr>
       </tbody>
-      
-      
     </table>
+
     <ng-template #sinDatos>
       <p class="text-muted">No hay tratamientos registrados aún.</p>
     </ng-template>

@@ -7,7 +7,8 @@ export interface Tratamiento {
   id?: number;
   /** Lo pone Spring */
   fecha?: string;
-
+  nombre: string;
+  descripcion: string;
   /** Al leer viene Droga, al enviar usamos sólo el id */
   droga: Droga | number;
 
