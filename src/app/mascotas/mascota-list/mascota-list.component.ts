@@ -1,16 +1,22 @@
+// src/app/mascotas/mascota-list/mascota-list.component.ts
+
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Mascota } from 'src/app/models/mascota.model';
 import { MascotaService } from 'src/app/services/mascota.service';
 
 @Component({
-  selector: 'app-mascota-lista',
+  selector: 'app-mascota-listar',
   templateUrl: './mascota-list.component.html',
   styleUrls: ['./mascota-list.component.css']
 })
 export class MascotaListarComponent implements OnInit {
   mascotas: Mascota[] = [];
 
-  constructor(private mascotaService: MascotaService) { }
+  constructor(
+    private mascotaService: MascotaService,
+    private location: Location     // ← inyecta Location
+  ) { }
 
   ngOnInit(): void {
     this.cargarMascotas();
@@ -39,5 +45,9 @@ export class MascotaListarComponent implements OnInit {
         }
       });
     }
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

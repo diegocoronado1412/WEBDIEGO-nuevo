@@ -1,35 +1,120 @@
-<main class="perfil-container">
+<!-- src/app/pages/perfil-cliente/perfil-cliente.component.html -->
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar"/>
+    <h2>Vibra Animal</h2>
+  </div>
+  <ul class="sidebar-menu">
+    <li>
+      <a routerLink="/dashboard-cliente" routerLinkActive="active">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/mascotas" routerLinkActive="active">
+        <i class="fas fa-paw"></i>
+        <span>Mis Mascotas</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/perfil/{{ cliente?.id }}" routerLinkActive="active">
+        <i class="fas fa-user"></i>
+        <span>Perfil</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/citas" routerLinkActive="active">
+        <i class="fas fa-calendar-check"></i>
+        <span>Apartar Cita</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/recetas" routerLinkActive="active">
+        <i class="fas fa-pills"></i>
+        <span>Mis Recetas</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/tratamientos" routerLinkActive="active">
+        <i class="fas fa-stethoscope"></i>
+        <span>Mis Tratamientos</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/tienda" routerLinkActive="active">
+        <i class="fas fa-store"></i>
+        <span>Tienda</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/carrito" routerLinkActive="active">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Carrito</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Salir</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="main-content">
+  <header>
     <h1>Perfil de Usuario</h1>
-  
+    <div class="user-info" *ngIf="cliente">
+      <p>Bienvenido, {{ cliente.nombre }}</p>
+    </div>
+  </header>
+
+  <main class="perfil-container">
     <!-- Se muestra la información solo si 'cliente' tiene datos -->
-    <div class="perfil-info" *ngIf="cliente">
+    <div *ngIf="cliente; else loading">
       <!-- Mostrar nombre -->
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" [(ngModel)]="cliente.nombre" disabled>
-  
+
       <!-- Mostrar cédula -->
       <label for="cedula">Cédula:</label>
       <input type="text" id="cedula" [(ngModel)]="cliente.cedula" disabled>
-  
+
       <!-- Mostrar correo electrónico -->
       <label for="email">Correo Electrónico:</label>
       <input type="email" id="email" [(ngModel)]="cliente.correo">
-  
+
       <!-- Mostrar celular -->
       <label for="telefono">Celular:</label>
       <input type="text" id="telefono" [(ngModel)]="cliente.celular">
-  
+
       <!-- Campo para nueva contraseña -->
       <label for="password">Nueva Contraseña:</label>
       <input type="password" id="password">
-  
+
       <!-- Botón para guardar cambios -->
       <button id="guardarPerfil" class="btn" (click)="guardarCambios()">Guardar Cambios</button>
     </div>
-  
+
     <!-- Mensaje de carga mientras los datos del cliente se están obteniendo -->
-    <div *ngIf="!cliente">
+    <ng-template #loading>
       <p>Cargando datos del perfil...</p>
-    </div>
+    </ng-template>
   </main>
-  
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <p>Email: info&#64;vibraanimal.com</p>
+        <p>Teléfono: (123) 456-7890</p>
+        <p>Dirección: Calle Principal #123, Ciudad</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Vibra Animal. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</div>

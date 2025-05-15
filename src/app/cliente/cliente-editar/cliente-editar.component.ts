@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
+
 import { Cliente } from 'src/app/models/cliente.model';
 import { ClienteService } from 'src/app/services/cliente.service';
 
@@ -16,7 +18,8 @@ export class ClienteEditarComponent implements OnInit {
 
   constructor(
     private clienteService: ClienteService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private location: Location        // <-- inyectamos Location
   ) {}
 
   ngOnInit(): void {
@@ -25,12 +28,12 @@ export class ClienteEditarComponent implements OnInit {
     });
 
     this.clienteForm = this.formBuilder.group({
-      nombre: ['', [Validators.required, Validators.minLength(2)]],
-      cedula: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      celular: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      nombre:     ['', [Validators.required, Validators.minLength(2)]],
+      cedula:     ['', Validators.required],
+      correo:     ['', [Validators.required, Validators.email]],
+      celular:    ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       contrasena: [''],
-      rol: ['cliente']
+      rol:        ['cliente']
     });
   }
 
@@ -40,16 +43,17 @@ export class ClienteEditarComponent implements OnInit {
       return;
     }
 
-    this.clienteService.getCliente(this.selectedClienteId).subscribe(cliente => {
-      this.clienteForm.patchValue({
-        nombre: cliente.nombre,
-        cedula: cliente.cedula,
-        correo: cliente.correo,
-        celular: cliente.celular,
-        contrasena: '',
-        rol: cliente.rol || 'cliente'
+    this.clienteService.getCliente(this.selectedClienteId)
+      .subscribe(cliente => {
+        this.clienteForm.patchValue({
+          nombre:     cliente.nombre,
+          cedula:     cliente.cedula,
+          correo:     cliente.correo,
+          celular:    cliente.celular,
+          contrasena: '',
+          rol:        cliente.rol || 'cliente'
+        });
       });
-    });
   }
 
   actualizarCliente(): void {
@@ -62,15 +66,21 @@ export class ClienteEditarComponent implements OnInit {
 
     if (this.clienteForm.valid) {
       const clienteActualizado: Cliente = {
-        id: this.selectedClienteId,
+        id:   this.selectedClienteId,
         ...this.clienteForm.value
       };
 
-      this.clienteService.actualizarCliente(this.selectedClienteId, clienteActualizado).subscribe(() => {
-        alert('Cliente actualizado correctamente');
-      });
+      this.clienteService.actualizarCliente(this.selectedClienteId, clienteActualizado)
+        .subscribe(() => {
+          alert('Cliente actualizado correctamente');
+        });
     } else {
       alert('Por favor completa todos los campos correctamente');
     }
+  }
+
+  // Nuevo método para volver atrás
+  goBack(): void {
+    this.location.back();
   }
 }

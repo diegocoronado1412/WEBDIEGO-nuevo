@@ -1,0 +1,63 @@
+
+<div class="main-content">
+  <!-- Botón “Volver” -->
+  <button class="btn" style="margin-bottom: 1rem;" (click)="goBack()">
+    <i class="fas fa-arrow-left"></i> Volver
+  </button>
+
+  <!-- Formulario de selección de cliente -->
+  <h2>Selecciona un Cliente</h2>
+  <form (ngSubmit)="selectCliente()">
+    <div class="form-group">
+      <label for="clienteSeleccionado">Cliente:</label>
+      <select
+        [(ngModel)]="selectedClienteCedula"
+        name="clienteCedula"
+        id="clienteSeleccionado"
+        required
+      >
+        <option value="">-- Seleccione --</option>
+        <option *ngFor="let cliente of clientes" [value]="cliente.cedula">
+          {{ cliente.nombre }} ({{ cliente.cedula }})
+        </option>
+      </select>
+    </div>
+    <button type="submit" class="btn" style="margin-bottom: 2rem;">
+      Cargar Mascotas
+    </button>
+  </form>
+
+  <!-- Tabla de mascotas -->
+  <h2>Mascotas Registradas</h2>
+  <section class="tabla-container">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Especie</th>
+          <th>Raza</th>
+          <th>Edad</th>
+          <th>Antecedentes</th>
+          <th>Estatus</th>
+          <th>Foto</th>
+          <th>Dueño</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mascota of mascotas">
+          <td>{{ mascota.nombre }}</td>
+          <td>{{ mascota.especie }}</td>
+          <td>{{ mascota.raza }}</td>
+          <td>{{ mascota.edad }}</td>
+          <td>{{ mascota.antecedentes }}</td>
+          <td>{{ mascota.estatus }}</td>
+          <td>
+            <img [src]="mascota.foto" alt="{{ mascota.nombre }}" width="80"/>
+          </td>
+          <td>{{ mascota.cliente?.cedula || 'Sin dueño' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="mascotas.length === 0">No hay mascotas registradas para este cliente.</p>
+  </section>
+</div>

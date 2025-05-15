@@ -1,4 +1,11 @@
+<!-- src/app/cliente/cliente-lista/cliente-lista.component.html -->
+
 <div class="main-content">
+  <!-- Botón Volver -->
+  <button type="button" class="btn secondary" (click)="goBack()" style="margin-bottom:1rem;">
+    <i class="fas fa-arrow-left"></i> Volver
+  </button>
+
   <header>
     <h1>Lista de Clientes</h1>
   </header>
@@ -27,10 +34,8 @@
               <a [routerLink]="['/cliente/editar', cliente.id]" class="btn-edit">
                 <i class="fas fa-edit"></i> Editar
               </a>
-              <button (click)="eliminarCliente(cliente.id)" class="form-eliminar">
-                <button type="submit" class="btn-delete">
-                  <i class="fas fa-trash"></i> Eliminar
-                </button>
+              <button (click)="eliminarCliente(cliente.id)" class="btn-delete">
+                <i class="fas fa-trash"></i> Eliminar
               </button>
             </td>
           </tr>

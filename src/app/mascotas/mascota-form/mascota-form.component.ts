@@ -1,4 +1,7 @@
+// src/app/mascota-form/mascota-form.component.ts
+
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';       // ← Importa Location
 import { MascotaService } from 'src/app/services/mascota.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { Mascota } from 'src/app/models/mascota.model';
@@ -20,7 +23,8 @@ export class MascotaFormComponent implements OnInit {
   constructor(
     private mascotaService: MascotaService,
     private clienteService: ClienteService,
-    private router: Router
+    private router: Router,
+    private location: Location      // ← Inyecta Location
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +40,6 @@ export class MascotaFormComponent implements OnInit {
 
   guardarMascota(): void {
     if (this.clienteCedula && this.mascota.nombre && this.mascota.especie) {
-      // Envío de la mascota (sin imagen por ahora)
       this.mascotaService.createMascota(this.mascota, this.clienteCedula).subscribe({
         next: () => {
           alert('Mascota registrada exitosamente');
@@ -50,5 +53,10 @@ export class MascotaFormComponent implements OnInit {
     } else {
       alert('Por favor completa todos los campos obligatorios');
     }
+  }
+
+  /** Método para regresar a la vista anterior */
+  goBack(): void {
+    this.location.back();
   }
 }

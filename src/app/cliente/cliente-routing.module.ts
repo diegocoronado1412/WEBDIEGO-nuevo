@@ -5,7 +5,9 @@ import { ClienteEditarComponent } from './cliente-editar/cliente-editar.componen
 import { ClienteListarComponent } from './cliente-listar/cliente-listar.component';
 import { ClientePerfilComponent } from './cliente-perfil/cliente-perfil.component';
 import { ClienteMascotasComponent } from './cliente-mascotas/cliente-mascotas.component';
-// ...otros componentes
+import { ClienteTratamientosComponent } from './cliente-tratamientos/cliente-tratamientos.component';
+import { ClienteVeterinarioMascotasSeleccionarComponent } from './cliente-veterinario-mascotas-seleccionar/cliente-veterinario-mascotas-seleccionar.component';
+
 
 const routes: Routes = [
   { path: 'crear', component: ClienteCrearComponent },
@@ -13,7 +15,8 @@ const routes: Routes = [
   { path: 'listar', component: ClienteListarComponent },
   { path: 'perfil/:id', component: ClientePerfilComponent },
   { path: 'mascotas', component: ClienteMascotasComponent },
-  // ...
+  { path: 'tratamientos', component: ClienteTratamientosComponent },
+  { path: 'veterinario/seleccionar-mascotas', component: ClienteVeterinarioMascotasSeleccionarComponent },
 ];
 
 @NgModule({

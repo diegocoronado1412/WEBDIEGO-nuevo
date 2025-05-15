@@ -1,1 +1,121 @@
-<p>cliente-tratamientos works!</p>
+<!-- src/app/cliente/cliente-tratamientos/cliente-tratamientos.component.html -->
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar"/>
+    <h2>Vibra Animal</h2>
+  </div>
+  <ul class="sidebar-menu">
+    <li>
+      <a routerLink="/dashboard-cliente" routerLinkActive="active">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/mascotas" routerLinkActive="active">
+        <i class="fas fa-paw"></i>
+        <span>Mis Mascotas</span>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/cliente','perfil', cliente?.id]" routerLinkActive="active">
+        <i class="fas fa-user"></i>
+        <span>Perfil</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/citas" routerLinkActive="active">
+        <i class="fas fa-calendar-check"></i>
+        <span>Apartar Cita</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/recetas" routerLinkActive="active">
+        <i class="fas fa-pills"></i>
+        <span>Mis Recetas</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/tratamientos" routerLinkActive="active">
+        <i class="fas fa-stethoscope"></i>
+        <span>Mis Tratamientos</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/tienda" routerLinkActive="active">
+        <i class="fas fa-store"></i>
+        <span>Tienda</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/carrito" routerLinkActive="active">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Carrito</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Salir</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="main-content">
+  <header>
+    <h1>Mis Tratamientos</h1>
+    <div class="user-info" *ngIf="cliente">
+      <p>Bienvenido, {{ cliente.nombre }}</p>
+    </div>
+  </header>
+
+  <main class="tratamientos-container">
+    <!-- Selección de Mascota -->
+    <h2>Selecciona una Mascota</h2>
+    <form (ngSubmit)="selectMascota()">
+      <div class="form-group">
+        <label for="mascotaSeleccionada">Mascota:</label>
+        <select
+          [(ngModel)]="selectedMascotaId"
+          name="mascotaId"
+          id="mascotaSeleccionada"
+          required
+        >
+          <option value="">-- Seleccione --</option>
+          <option *ngFor="let m of mascotas" [value]="m.id">
+            {{ m.nombre }}
+          </option>
+        </select>
+      </div>
+      <button type="submit" class="btn">Cargar Tratamientos</button>
+    </form>
+
+    <!-- Tabla de Tratamientos -->
+    <h2>Tratamientos Registrados</h2>
+    <section class="tabla-container" *ngIf="tratamientos.length > 0; else noTratamientos">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Droga</th>
+            <th>Precio Venta</th>
+            <th>Veterinario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of tratamientos">
+            <td>{{ t.fecha }}</td>
+            <td>{{ getDrogaNombre(t.droga) }}</td>
+            <td>{{ getDrogaPrecio(t.droga) | currency }}</td>
+            <td>{{ getVeterinarioNombre(t.veterinario) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <ng-template #noTratamientos>
+      <p>No hay tratamientos para la mascota seleccionada.</p>
+    </ng-template>
+  </main>
+</div>

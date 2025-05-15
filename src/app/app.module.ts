@@ -26,7 +26,8 @@ import { NgChartsModule } from 'ng2-charts';
     VeterinarioMascotasComponent,
     VeterinarioTratamientosComponent,
     SidebarComponent,
-    DashboardAdminComponent
+    DashboardAdminComponent,
+    
   ],
   imports: [
     BrowserModule,

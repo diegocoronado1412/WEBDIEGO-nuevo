@@ -1,53 +1,72 @@
+<!-- src/app/mascotas/mascota-list/mascota-list.component.html -->
+
 <div class="main-content">
-    <header>
-      <h1>Lista de Mascotas</h1>
-    </header>
-  
-    <main>
-      <section class="tabla-container">
-        <table class="styled-table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Especie</th>
-              <th>Raza</th>
-              <th>Edad</th>
-              <th>Foto</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let mascota of mascotas">
-              <td>{{ mascota.nombre }}</td>
-              <td>{{ mascota.especie }}</td>
-              <td>{{ mascota.raza }}</td>
-              <td>{{ mascota.edad }}</td>
-              <td>
-                <img *ngIf="mascota.foto" [src]="mascota.foto" alt="Foto de {{ mascota.nombre }}" width="100" />
-              </td>
-              
-              <td class="acciones">
-                <!-- Ver más (opcional si tienes componente de detalle) -->
-                <a [routerLink]="['/mascotas/detalle', mascota.id]" class="btn-detail">
-                  <i class="fas fa-info-circle"></i> Ver más
-                </a>
-                <!-- Editar -->
-                <a [routerLink]="['/mascotas/edit', mascota.id]" class="btn-edit">
-                  <i class="fas fa-edit"></i> Editar
-                </a>
-                <!-- Eliminar -->
-                <button (click)="eliminarMascota(mascota.id)" class="btn-delete">
-                  <i class="fas fa-trash"></i> Eliminar
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-  
-      <section>
-        <a routerLink="/mascota/crear" class="btn">Crear nueva Mascota</a>
-      </section>
-    </main>
-  </div>
-  
+  <!-- Botón Volver -->
+  <button class="btn" style="margin-bottom: 1rem;" (click)="goBack()">
+    <i class="fas fa-arrow-left"></i> Volver
+  </button>
+
+  <header>
+    <h1>Lista de Mascotas</h1>
+  </header>
+
+  <main>
+    <section class="tabla-container">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Especie</th>
+            <th>Raza</th>
+            <th>Edad</th>
+            <th>Foto</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mascota of mascotas">
+            <td>{{ mascota.nombre }}</td>
+            <td>{{ mascota.especie }}</td>
+            <td>{{ mascota.raza }}</td>
+            <td>{{ mascota.edad }}</td>
+            <td>
+              <img
+                *ngIf="mascota.foto"
+                [src]="mascota.foto"
+                alt="Foto de {{ mascota.nombre }}"
+                width="100"
+              />
+            </td>
+            <td class="acciones">
+              <!-- Ver más -->
+              <a
+                [routerLink]="['/mascotas/detalle', mascota.id]"
+                class="btn-detail"
+              >
+                <i class="fas fa-info-circle"></i> Ver más
+              </a>
+              <!-- Editar -->
+              <a
+                [routerLink]="['/mascotas/edit', mascota.id]"
+                class="btn-edit"
+              >
+                <i class="fas fa-edit"></i> Editar
+              </a>
+              <!-- Eliminar -->
+              <button
+                (click)="eliminarMascota(mascota.id)"
+                class="btn-delete"
+              >
+                <i class="fas fa-trash"></i> Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section style="margin-top: 1rem;">
+      <a routerLink="/mascota/crear" class="btn">Crear nueva Mascota</a>
+    </section>
+  </main>
+</div>

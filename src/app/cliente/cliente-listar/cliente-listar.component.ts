@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+
 import { Cliente } from 'src/app/models/cliente.model';
 import { ClienteService } from 'src/app/services/cliente.service';
 
@@ -10,16 +12,19 @@ import { ClienteService } from 'src/app/services/cliente.service';
 export class ClienteListarComponent implements OnInit {
   clientes: Cliente[] = [];
 
-  constructor(private clienteService: ClienteService) { }
+  constructor(
+    private clienteService: ClienteService,
+    private location: Location      // <-- inyectamos Location
+  ) { }
 
   ngOnInit(): void {
-    this.cargarClientes();  // Cargar clientes al inicializar el componente
+    this.cargarClientes();
   }
 
   cargarClientes(): void {
     this.clienteService.findAll().subscribe({
       next: (clientes) => {
-        this.clientes = clientes;  // Asignar la lista de clientes a la variable
+        this.clientes = clientes;
       },
       error: (err) => {
         console.error('Error al cargar clientes:', err);
@@ -40,5 +45,10 @@ export class ClienteListarComponent implements OnInit {
         }
       });
     }
-  }  
+  }
+
+  // Nuevo método para volver atrás
+  goBack(): void {
+    this.location.back();
+  }
 }

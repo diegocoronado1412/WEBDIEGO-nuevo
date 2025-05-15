@@ -34,7 +34,7 @@ export class LoginComponent {
           this.router.navigate(['/dashboard-cliente']);
         } else if (rol === 'veterinario') {
           this.router.navigate(['/dashboard-veterinario']);
-        } else if (rol === 'admin') { // 👈 CORRECTO, como viene del backend
+        } else if (rol === 'admin') { 
           this.router.navigate(['/dashboard-admin']);
         } else {
           console.warn('Rol desconocido:', rawRole);

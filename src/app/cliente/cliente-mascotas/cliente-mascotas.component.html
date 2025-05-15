@@ -1,51 +1,139 @@
-<!-- Formulario de selección de cliente -->
-<h2>Selecciona un Cliente</h2>
-<form (ngSubmit)="selectCliente()">
-  <div class="form-group">
-    <label for="clienteSeleccionado">Cliente:</label>
-    <select [(ngModel)]="selectedClienteCedula" name="clienteCedula" id="clienteSeleccionado" required>
-      <option value="">-- Seleccione --</option>
-      <option *ngFor="let cliente of clientes" [value]="cliente.cedula">
-        {{ cliente.nombre }} ({{ cliente.cedula }})
-      </option>
-    </select>
+<!-- src/app/mascotas/mascota-list/mascota-list.component.html -->
+
+<!-- Sidebar solo para cliente -->
+<div class="sidebar" *ngIf="role === 'cliente'">
+  <div class="sidebar-header">
+    <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar"/>
+    <h2>Vibra Animal</h2>
   </div>
-  <button type="submit" class="btn" style="margin-bottom: 2rem;">Cargar Mascotas</button>
-</form>
+  <ul class="sidebar-menu">
+    <li>
+      <a routerLink="/dashboard-cliente" routerLinkActive="active">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/mascotas" routerLinkActive="active">
+        <i class="fas fa-paw"></i>
+        <span>Mis Mascotas</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/perfil/{{ cliente?.id }}" routerLinkActive="active">
+        <i class="fas fa-user"></i>
+        <span>Perfil</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/citas" routerLinkActive="active">
+        <i class="fas fa-calendar-check"></i>
+        <span>Apartar Cita</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/recetas" routerLinkActive="active">
+        <i class="fas fa-pills"></i>
+        <span>Mis Recetas</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/tratamientos" routerLinkActive="active">
+        <i class="fas fa-stethoscope"></i>
+        <span>Mis Tratamientos</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/tienda" routerLinkActive="active">
+        <i class="fas fa-store"></i>
+        <span>Tienda</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cliente/carrito" routerLinkActive="active">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Carrito</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Salir</span>
+      </a>
+    </li>
+  </ul>
+</div>
 
-<!-- Tabla de mascotas del cliente seleccionado -->
-<h2>Mascotas Registradas</h2>
-<section class="tabla-container" *ngIf="mascotas.length > 0">
-  <table class="styled-table">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Especie</th>
-        <th>Raza</th>
-        <th>Edad</th>
-        <th>Antecedentes</th>
-        <th>Estatus</th>
-        <th>Foto</th>
-        <th>Dueño</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let mascota of mascotas">
-        <td>{{ mascota.nombre }}</td>
-        <td>{{ mascota.especie }}</td>
-        <td>{{ mascota.raza }}</td>
-        <td>{{ mascota.edad }}</td>
-        <td>{{ mascota.antecedentes }}</td>
-        <td>{{ mascota.estatus }}</td>
-        <td><img [src]="mascota.foto" alt="{{ mascota.nombre }}" width="80"/></td>
-      </tr>
-    </tbody>
-  </table>
-</section>
+<div class="main-content">
+  <!-- Botón “Volver” solo para veterinario -->
+  <button
+    *ngIf="role === 'veterinario'"
+    class="btn"
+    style="margin-bottom: 1rem;"
+    (click)="goBack()"
+  >
+    <i class="fas fa-arrow-left"></i> Volver
+  </button>
 
-<!-- Mensaje cuando no hay mascotas -->
-<section *ngIf="mascotas.length === 0">
-  <p>No hay mascotas registradas para este cliente.</p>
-</section>
+  <!-- Formulario de selección de cliente solo para veterinario -->
+  <div *ngIf="role === 'veterinario'">
+    <h2>Selecciona un Cliente</h2>
+    <form (ngSubmit)="selectCliente()">
+      <div class="form-group">
+        <label for="clienteSeleccionado">Cliente:</label>
+        <select
+          [(ngModel)]="selectedClienteCedula"
+          name="clienteCedula"
+          id="clienteSeleccionado"
+          required
+        >
+          <option value="">-- Seleccione --</option>
+          <option *ngFor="let cliente of clientes" [value]="cliente.cedula">
+            {{ cliente.nombre }} ({{ cliente.cedula }})
+          </option>
+        </select>
+      </div>
+      <button type="submit" class="btn" style="margin-bottom: 2rem;">
+        Cargar Mascotas
+      </button>
+    </form>
+  </div>
 
+  <!-- Tabla de mascotas (visible para ambos roles) -->
+  <h2>Mascotas Registradas</h2>
+  <section class="tabla-container" *ngIf="mascotas.length > 0">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Especie</th>
+          <th>Raza</th>
+          <th>Edad</th>
+          <th>Antecedentes</th>
+          <th>Estatus</th>
+          <th>Foto</th>
+          <th>Dueño</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mascota of mascotas">
+          <td>{{ mascota.nombre }}</td>
+          <td>{{ mascota.especie }}</td>
+          <td>{{ mascota.raza }}</td>
+          <td>{{ mascota.edad }}</td>
+          <td>{{ mascota.antecedentes }}</td>
+          <td>{{ mascota.estatus }}</td>
+          <td>
+            <img [src]="mascota.foto" alt="{{ mascota.nombre }}" width="80"/>
+          </td>
+          <td>{{ mascota.cliente?.cedula || 'Sin dueño' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
+  <!-- Mensaje cuando no hay mascotas -->
+  <section *ngIf="mascotas.length === 0">
+    <p>No hay mascotas registradas para este cliente.</p>
+  </section>
+</div>

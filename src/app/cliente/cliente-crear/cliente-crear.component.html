@@ -1,4 +1,5 @@
-<!-- Formulario de creación de cliente -->
+<!-- src/app/cliente/cliente-form/cliente-form.component.html -->
+
 <h2>Ingresa tus datos</h2>
 <form [formGroup]="clienteForm" (ngSubmit)="crearCliente()">
   <div class="form-group">
@@ -47,5 +48,12 @@
     </div>
   </div>
 
-  <button type="submit" class="btn" [disabled]="clienteForm.invalid">Crear Cliente</button>
+  <div class="button-group">
+    <button type="submit" class="btn primary" [disabled]="clienteForm.invalid">
+      Crear Cliente
+    </button>
+    <button type="button" class="btn secondary" (click)="goBack()">
+      Volver
+    </button>
+  </div>
 </form>
