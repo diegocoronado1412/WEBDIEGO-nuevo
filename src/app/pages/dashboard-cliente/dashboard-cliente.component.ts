@@ -48,33 +48,56 @@ export class DashboardClienteComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // Chart de líneas para Citas
+    // Chart de líneas para Citas (mejorado)
     new Chart('citasChart', {
       type: 'line',
       data: {
-        labels: ['Ene','Feb','Mar','Abr','May','Jun','Jul'],
+        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'],
         datasets: [{
           label: 'Citas',
           data: [5, 8, 6, 10, 7, 12, 9],
           fill: true,
-          backgroundColor: 'rgba(60,141,188,0.2)',
-          borderColor: 'rgba(60,141,188,1)'
+          backgroundColor: 'rgba(46, 125, 50, 0.2)',  // Verde claro
+          borderColor: '#2e7d32',                     // Verde fuerte
+          borderWidth: 3,
+          tension: 0.4,
+          pointBackgroundColor: '#2e7d32',
+          pointRadius: 5,
+          pointHoverRadius: 7
         }]
       },
-      options: { responsive: true, maintainAspectRatio: false }
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { font: { size: 14 }, color: '#333' } }
+        },
+        scales: {
+          x: { grid: { color: '#e0e0e0' }, ticks: { color: '#333' } },
+          y: { grid: { color: '#e0e0e0' }, ticks: { color: '#333' } }
+        }
+      }
     });
 
-    // Donut para Recetas vs Carrito
+    // Donut para Recetas vs Carrito (mejorado)
     new Chart('recetasDonut', {
       type: 'doughnut',
       data: {
-        labels: ['Recetas','Carrito'],
+        labels: ['Recetas', 'Carrito'],
         datasets: [{
           data: [this.cantidadRecetas, this.cantidadCarrito],
-          backgroundColor: ['#28a745','#007bff']
+          backgroundColor: ['#66bb6a', '#42a5f5'],
+          borderColor: '#ffffff',
+          borderWidth: 2
         }]
       },
-      options: { responsive: true, maintainAspectRatio: false }
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top', labels: { font: { size: 14 }, color: '#333' } }
+        }
+      }
     });
   }
 }

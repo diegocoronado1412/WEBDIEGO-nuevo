@@ -80,7 +80,7 @@
   .tabla-container {
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto 4rem;
+    margin: 0 auto 20rem;
     overflow-x: auto;
   }
   .styled-table {
@@ -425,3 +425,34 @@
     text-align: center;
   }
   
+footer {
+  background-color: #1b5e20;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;           /* Asegura que ocupe todo el ancho */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;    /* Alinea verticalmente también si fuera necesario */
+  flex-wrap: wrap;        /* Para responsividad */
+  max-width: 1200px;      /* Controla el ancho máximo */
+  margin: 0 auto;         /* Centra el contenido */
+}
+
+.footer-section {
+  width: 100%;            /* Ocupa todo el ancho disponible */
+  max-width: 600px;       /* O ajusta a tu gusto */
+}
+
+.footer-section h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.footer-bottom {
+  margin-top: 10px;
+  font-size: 14px;
+}

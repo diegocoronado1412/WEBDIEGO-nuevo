@@ -23,6 +23,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 35px; 
   }
   
   .logo-sidebar {
@@ -43,7 +44,7 @@
   }
   
   .sidebar-menu li {
-    margin: 10px 0;
+    margin: 5px 0;
   }
   
   .sidebar-menu a {
@@ -109,8 +110,9 @@
   .dashboard-stats {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: center;
     gap: 30px;
+    margin-top: 30px;
   }
   
   .stat-card {
@@ -151,3 +153,32 @@
     text-align: center;
   }
   
+.card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    font-weight: bold;
+    font-size: 18px;
+    color: #2e7d32;
+    border-bottom: 2px solid #2e7d32;
+    margin-bottom: 10px;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+canvas {
+    width: 100% !important;
+    height: 300px !important; /* Ajusta altura para mejor visibilidad */
+}
