@@ -22,7 +22,7 @@ export class MascotaDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private mascotaService: MascotaService,
     private tratamientoService: TratamientoService,
-    private location: Location             // ← Inyecta Location
+    private location: Location             
   ) {}
 
   ngOnInit(): void {
