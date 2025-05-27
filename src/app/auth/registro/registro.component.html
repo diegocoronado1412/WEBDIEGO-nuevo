@@ -1,10 +1,9 @@
-
 <app-navbar></app-navbar>
 
 <div class="register-container">
   <div class="register-card">
     <div class="register-image">
-      <img src="assets/images/registro-bg.jpg" alt="Ilustración de registro">
+      <img src="assets/images/registro-bg.png" alt="Ilustración de registro">
     </div>
     <div class="register-form-container">
       <h2>Crear Cuenta</h2>
@@ -39,6 +38,7 @@
             placeholder="ejemplo@dominio.com"
             required>
         </div>
+        <!-- Eliminado selector de rol: siempre "cliente" -->
         <div class="form-group">
           <label for="password">Contraseña</label>
           <input
@@ -59,6 +59,7 @@
             placeholder="••••••••"
             required>
         </div>
+
         <button type="submit" [disabled]="!registroForm.valid">Crear Cuenta</button>
       </form>
       <p class="register-footer-text">
@@ -67,6 +68,5 @@
     </div>
   </div>
 </div>
-
 
 <app-footer></app-footer>

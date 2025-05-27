@@ -119,4 +119,32 @@
       height: 200px;
     }
   }
-  
+.register-card {
+  display: flex;
+  max-width: 900px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  align-items: stretch; /* Mantiene altura uniforme */
+}
+
+.register-image {
+  flex: 1;
+  display: flex;
+  align-items: center;  /* Centra la imagen verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  background-color: #f0f0f0; /* Color de fondo opcional para dar contraste */
+  padding: 10px; /* Espacio interior opcional */
+}
+
+.register-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Ahora ajusta la imagen al contenedor sin recortarla */
+}
+
+.register-form-container {
+  padding: 30px;
+  flex: 1;
+}
