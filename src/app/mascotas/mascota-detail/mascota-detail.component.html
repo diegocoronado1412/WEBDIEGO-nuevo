@@ -1,4 +1,3 @@
-<!-- src/app/mascota-detail/mascota-detail.component.html -->
 <main *ngIf="mascota">
   <section class="page-header">
     <h1>Detalle de {{ mascota.nombre }}</h1>
@@ -8,8 +7,10 @@
     <div class="detalle-contenedor">
       <div class="detalle-foto">
         <h2>Foto</h2>
-        <img *ngIf="mascota.foto" [src]="mascota.foto" alt="Foto de Mascota" width="250">
-        <p *ngIf="!mascota.foto"><em>No hay foto disponible</em></p>
+        <img 
+          src="/assets/images/mascotas/default.jpg" 
+          alt="Foto de Mascota" 
+          width="250">
       </div>
 
       <div class="detalle-info">

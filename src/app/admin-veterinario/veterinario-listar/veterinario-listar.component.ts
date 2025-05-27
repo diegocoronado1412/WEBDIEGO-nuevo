@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { VeterinarioService } from 'src/app/services/veterinario.service';
+import { Location } from '@angular/common';  // 👈 Importar Location
 
 @Component({
   selector: 'app-veterinario-listar',
@@ -10,7 +11,11 @@ import { VeterinarioService } from 'src/app/services/veterinario.service';
 export class VeterinarioListarComponent implements OnInit {
   veterinarios: any[] = [];
 
-  constructor(private veterinarioService: VeterinarioService, private router: Router) {}
+  constructor(
+    private veterinarioService: VeterinarioService,
+    private router: Router,
+    private location: Location   // 👈 Inyectar Location
+  ) {}
 
   ngOnInit(): void {
     this.veterinarioService.obtenerTodos().subscribe({
@@ -34,5 +39,8 @@ export class VeterinarioListarComponent implements OnInit {
       });
     }
   }
-  
+
+  goBack(): void {
+    this.location.back();   // 👈 Método para volver atrás
+  }
 }

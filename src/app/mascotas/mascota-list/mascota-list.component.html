@@ -29,14 +29,15 @@
             <td>{{ mascota.especie }}</td>
             <td>{{ mascota.raza }}</td>
             <td>{{ mascota.edad }}</td>
-            <td>
-              <img
-                *ngIf="mascota.foto"
-                [src]="mascota.foto"
-                alt="Foto de {{ mascota.nombre }}"
-                width="100"
-              />
-            </td>
+<td>
+  <img
+    src="/assets/images/mascotas/default.jpg"
+    alt="Foto predeterminada"
+    width="100"
+  />
+</td>
+
+
             <td class="acciones">
               <!-- Ver más -->
               <a

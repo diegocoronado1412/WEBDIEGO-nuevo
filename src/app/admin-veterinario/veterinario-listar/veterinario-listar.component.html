@@ -1,28 +1,32 @@
 <main class="contenedor-listado">
-    <h2>Listado de Veterinarios</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Cédula</th>
-          <th>Especialidad</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let vet of veterinarios">
-          <td>{{ vet.id }}</td>
-          <td>{{ vet.nombre }}</td>
-          <td>{{ vet.cedula }}</td>
-          <td>{{ vet.especialidad }}</td>
-          <td>
-            <button (click)="irADetalle(vet.cedula)">Ver</button>
-            <button (click)="irAEditar(vet.cedula)">Editar</button>
-            <button (click)="eliminar(vet.cedula)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </main>
-  
+  <h2>Listado de Veterinarios</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Cédula</th>
+        <th>Especialidad</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vet of veterinarios">
+        <td>{{ vet.id }}</td>
+        <td>{{ vet.nombre }}</td>
+        <td>{{ vet.cedula }}</td>
+        <td>{{ vet.especialidad }}</td>
+        <td>
+          <button (click)="irADetalle(vet.cedula)">Ver</button>
+          <button (click)="irAEditar(vet.cedula)">Editar</button>
+          <button (click)="eliminar(vet.cedula)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Botón Volver -->
+  <button class="btn" style="margin-top: 1rem;" (click)="goBack()">
+    <i class="fas fa-arrow-left"></i> Volver
+  </button>
+</main>
