@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { VeterinarioService } from 'src/app/services/veterinario.service';
+import { Location } from '@angular/common';   // Importar Location para goBack
 
 @Component({
   selector: 'app-veterinario-crear',
@@ -19,9 +20,12 @@ export class VeterinarioCrearComponent {
     rol: 'veterinario',
     numeroAtenciones: 0
   };
-  
 
-  constructor(private veterinarioService: VeterinarioService, private router: Router) {}
+  constructor(
+    private veterinarioService: VeterinarioService,
+    private router: Router,
+    private location: Location   // Inyectar Location
+  ) {}
 
   guardar(): void {
     this.veterinarioService.crear(this.veterinario).subscribe({
@@ -35,5 +39,8 @@ export class VeterinarioCrearComponent {
       }
     });
   }
-}
 
+  goBack(): void {
+    this.location.back();   // Método para volver atrás
+  }
+}

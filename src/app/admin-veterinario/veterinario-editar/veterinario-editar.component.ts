@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VeterinarioService, Veterinario } from 'src/app/services/veterinario.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';   // 👈 Importar Location
 
 @Component({
   selector: 'app-veterinario-editar',
@@ -12,13 +13,14 @@ export class VeterinarioEditarComponent implements OnInit {
 
   veterinarioForm!: FormGroup;
   cedula!: string;
-  veterinarioOriginal!: Veterinario; // ⚠️ Guarda el original para recuperar el id
+  veterinarioOriginal!: Veterinario;
 
   constructor(
     private veterinarioService: VeterinarioService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location   // 👈 Inyectar Location
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +51,7 @@ export class VeterinarioEditarComponent implements OnInit {
           return;
         }
 
-        this.veterinarioOriginal = veterinario; // 💾 Guarda el original con ID
+        this.veterinarioOriginal = veterinario;
 
         this.veterinarioForm.patchValue({
           nombre: veterinario.nombre,
@@ -72,11 +74,11 @@ export class VeterinarioEditarComponent implements OnInit {
   actualizarVeterinario(): void {
     if (this.veterinarioForm.valid) {
       const veterinarioActualizado: Veterinario = {
-        ...this.veterinarioOriginal,               // conserva el id original
-        ...this.veterinarioForm.value              // sobrescribe con los datos actualizados
+        ...this.veterinarioOriginal,
+        ...this.veterinarioForm.value
       };
 
-      console.log('🔄 Enviando al backend:', veterinarioActualizado); // puedes eliminar esto luego
+      console.log('🔄 Enviando al backend:', veterinarioActualizado);
 
       this.veterinarioService.actualizarPorCedula(this.cedula, veterinarioActualizado).subscribe({
         next: () => {
@@ -91,5 +93,9 @@ export class VeterinarioEditarComponent implements OnInit {
     } else {
       alert('Por favor complete todos los campos correctamente.');
     }
+  }
+
+  goBack(): void {
+    this.location.back();   // 👈 Método para volver atrás
   }
 }

@@ -1,5 +1,17 @@
 <main class="admin-veterinario-menu">
     <h1>Gestión de Veterinarios</h1>
+
+    <div class="sidebar">
+  <div class="sidebar-header">
+    <img src="assets/images/logo.png" alt="Logo Vibra Animal" class="logo-sidebar" />
+    <h2>Vibra Animal</h2>
+  </div>
+  <ul class="sidebar-menu">
+    <li><a routerLink="/dashboard-admin" routerLinkActive="active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+    <li><a routerLink="/admin-veterinario" routerLinkActive="active"><i class="fas fa-user-md"></i><span>Veterinario</span></a></li>
+    <li><a routerLink="/login" class="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a></li>
+  </ul>
+</div>
   
     <div class="botones-container">
       <button class="btn-admin" routerLink="/admin-veterinario/listar">
