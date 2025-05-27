@@ -27,6 +27,7 @@ body, html {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 50px;
 }
 
 .logo-sidebar {
@@ -111,6 +112,7 @@ header h1 {
   justify-content: center;
   flex-wrap: wrap;
   gap: 30px;
+  margin-top: 30px;
 }
 
 .stat-card {
@@ -151,7 +153,28 @@ header h1 {
 }
 
 /*====================================
-  6. Footer
+  6. Gráficas - Mejora de Espaciado y Altura
+====================================*/
+.row.mt-4 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px; /* Espacio entre las gráficas */
+}
+
+.col-md-8, .col-md-4 {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+.card-body {
+  position: relative;
+  height: 300px; /* Altura mejorada para las gráficas */
+}
+
+/*====================================
+  7. Footer
 ====================================*/
 footer {
   background-color: #2e7d32;
@@ -183,7 +206,7 @@ footer {
 }
 
 /*====================================
-  7. Animations
+  8. Animations
 ====================================*/
 @keyframes fadeInTitle {
   to {
